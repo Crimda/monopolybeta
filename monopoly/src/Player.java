@@ -34,7 +34,7 @@ public class Player
     
     public int getPos()
     {
-    return position;
+        return position;
     }
     
     public String getName()
@@ -68,8 +68,5 @@ public class Player
     public boolean isBankrupt() 
     {
 	return bankrupt;
-    }
-    
-    
-    
+    }  
 }
