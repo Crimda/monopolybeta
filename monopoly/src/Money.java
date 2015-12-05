@@ -6,12 +6,10 @@ public class Money
 {
     int money;
 	
-    /**
-     * public Money() 
-        {
+    public Money() 
+    {
 	this(0);
-	}
-    */ 
+    }
     
     //methods
     public Money(int money) 
