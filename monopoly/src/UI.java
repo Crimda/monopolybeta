@@ -89,10 +89,10 @@ public class UI
 		System.out.println("");
 		System.out.print("+============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
 		System.out.print("|  Visiting  | | Conn. Ave. | | Verm. Ave. | |            | | Orie. Ave. | |  Reading   | |   INCOME   | | Balt. Ave. | |  Community | | Medi. Ave. | |            |\n");
-		System.out.print("+J +=========+ +============+ +============+ |            | +============+ |  Railroad  | |     TAX    | +============+ |    Chest   | +============+ |    G  O    |\n");
-		System.out.print("|U |  IN     | |            | |            | |   CHANCE   | |            | |            | |            | |            | |            | |            | |  <------   |\n"); // TODO: hotels and houses line
-		System.out.print("|S |         | |            | |            | |            | |            | |            | |            | |            | |            | |            | |            |\n"); // TODO: Player 1 slot
-		System.out.print("|T |   JAIL  | |    M120    | |    M100    | |            | |    M100    | |    M200    | |  PAY M200  | |     M60    | |            | |     M60    | |            |\n");
+		System.out.print("+J  +========+ +============+ +============+ |            | +============+ |  Railroad  | |     TAX    | +============+ |    Chest   | +============+ |    G  O    |\n");
+		System.out.print("|U  |   IN   | |            | |            | |   CHANCE   | |            | |            | |            | |            | |            | |            | |  <------   |\n"); // TODO: hotels and houses line
+		System.out.print("|S  |        | |            | |            | |            | |            | |            | |            | |            | |            | |            | |            |\n"); // TODO: Player 1 slot
+		System.out.print("|T  |  JAIL  | |    M120    | |    M100    | |            | |    M100    | |    M200    | |  PAY M200  | |     M60    | |            | |     M60    | |            |\n");
 		System.out.print("+==+=========+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
 	}
 	public static void draw(String test)
