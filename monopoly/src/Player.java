@@ -4,7 +4,7 @@
  */
 public class Player 
 {
-    int playerId;
+    int playerID;
     int turn = 0;
     int position = 0;
     String name; 
@@ -13,7 +13,7 @@ public class Player
     
     public Player (int playerId, String name)
     {
-        this.playerId = playerId; 
+        this.playerID = playerId; 
         this.name = name;
     }
     
@@ -49,7 +49,7 @@ public class Player
 	
     public int getID() 
     {
-	return playerId;
+	return playerID;
     }
     
     //player tosses a die 

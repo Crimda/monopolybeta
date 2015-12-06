@@ -70,9 +70,9 @@ public class Board
         return players;
     }
 	
-    public Player getPlayer(int id) 
+    public Player getPlayer(int playerID) 
     {
-	return players[id];
+	return players[playerID];
     }
 	
     public int getTotalSpaces() 
