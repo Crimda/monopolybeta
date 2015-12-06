@@ -80,4 +80,12 @@ public class Board
 	return spaces.length;
     }
     
-}
+    public void nextTurn() 
+    {//make sure turn does not exceed number of players left 
+        //todo: for this to work, need to implement player removal as well
+	if(++presentTurn >= players.length)
+        {
+            presentTurn = 0;
+        }
+    }
+}	
