@@ -27,6 +27,7 @@ public abstract class Space
         return color;
     }
     
-    //reserved for square specific action?
-    //public abstract void doSomething(Player player, Board board);
+   //abstract method that special monopoly squares will use to execute
+    //their actions by overriding 
+    public abstract void action(Player player, Board board);
 }
