@@ -2,6 +2,7 @@
  *
  * @author Brad
  */
+import java.util.Random;
 public class Board 
 {
     int presentTurn = 0;
@@ -10,12 +11,31 @@ public class Board
     Space[] spaces = new Space[40];
     //TODO: need a way to name/mark the spaces 
     
-    /**
-    public Board()
+    
+    public Board(int playerCount)
     {
+        this.playerCount = playerCount;
+        players = new Player[playerCount]; 
+        for(int i = 0; i < players.length; i++)
+        {   //create player 1 and 2 or however many is specified 
+            players[i] = new Player(i, "player " + (i + 1));
+        }
+        
+        for(int i = 0; i < spaces.length; i++)
+        {
+            if(i == 0)
+                spaces[i] = new Go("GO");
+            else if(i == 2)
+                spaces[i] = new chest("Community Chest");
+            else if(i == 4)
+                spaces[i] = new incomeTax("Income Tax");
+            else if(i == 7)
+                spaces[i] = new chance("Chance?");
+        }
+        
     }
-    TODO: call functions for special blocks like jail, and rent, and everything  else kill me now
-    */
+    //TODO: call functions for special blocks like jail, and rent, and everything  else kill me now
+    
     
     public Space movePos(Player player, int roll)
     {
