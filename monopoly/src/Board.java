@@ -25,12 +25,14 @@ public class Board
         {
             if(i == 0)
                 spaces[i] = new Go("GO");
+            /** these pieces don't exist yet 
             else if(i == 2)
                 spaces[i] = new chest("Community Chest");
             else if(i == 4)
                 spaces[i] = new incomeTax("Income Tax");
             else if(i == 7)
                 spaces[i] = new chance("Chance?");
+                */
         }
         
     }
