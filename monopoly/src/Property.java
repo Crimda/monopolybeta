@@ -31,8 +31,10 @@ public class Property extends Space
         if (master < 0)
         {
         System.out.println(player.getName() + " do you want to purchase " + getName() + "?");
-        if //fuck TODO: handle player input on whether to buy property or not
+        /**if //fuck TODO: handle player input on whether to buy property or not
                 // also charge rent if the player is not the Master/owner
+                */
         }
     }
+    
 }
