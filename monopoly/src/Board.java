@@ -27,8 +27,8 @@ public class Board
         
         int newPos = (player.getPos() + roll);
         player.setPos(newPos);
-        System.out.println("Player moves to " + spaces[player.getPos()].getName()); //TODO: get a helper function to identify player name and print it
-        return spaces[newPos];
+        System.out.println("Player moves to " + spaces[player.getPos()].getName()); //TODO: get a helper function to 
+        return spaces[newPos];                                                      //identify player name and print it
     }
     
     public boolean hasWinner() 
@@ -57,7 +57,7 @@ public class Board
                 return player; 
             }
 	}
-		return null;
+	return null;
     }
     
     public Player getCurrentPlayer() 
