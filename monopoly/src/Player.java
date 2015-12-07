@@ -45,7 +45,7 @@ public class Player
     { // returns true if the player rolled doubles and may move again
     	if (this.inJail) return false;
 
-		int[] dieRoll = Dice.rollDice();
+		int[] dieRoll = Dice.getRoll();
 
 		this.position += dieRoll[2];
 
@@ -153,6 +153,7 @@ public class Player
 				return false;
 			}
 		}
+		else return false;
     }
 
     public void setBankrupt(boolean bankrupt) 
