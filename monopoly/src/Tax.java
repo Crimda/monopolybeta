@@ -25,7 +25,10 @@ public class Tax extends Space
 	@Override
 	public void setHotel(boolean yesno)
 	{} // Disabled
-
+        
+        @Override
+	public void setMortgage(boolean yesno)
+	{} // Disabled
     @Override
     public void action(Player player, Board board) 
     {

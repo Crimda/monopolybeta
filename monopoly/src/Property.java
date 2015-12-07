@@ -42,6 +42,12 @@ public class Property extends Space
 	{
 		this.hotel = yesno;
 	}
+        
+        @Override
+	public void setMortgage(boolean yesno)
+	{
+		this.hotel = yesno;
+	}
    
     @Override 
     public void action(Player player, Board board)
