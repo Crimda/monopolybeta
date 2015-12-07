@@ -18,6 +18,12 @@ public class Railroad extends Space
     }
 
 	@Override
+	public void setOwnerID(int id)
+	{
+		this.ownerID = id;
+	}
+
+	@Override
 	public void setHouses(int houses)
 	{} // Disabled
 

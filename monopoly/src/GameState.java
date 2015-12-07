@@ -66,7 +66,10 @@ public class GameState
 
 		// Debug lines
 		for (int i = 0; i < 40; i++)
+		{
 			this.properties[i].setHotel(true);
+			this.properties[i].setOwnerID(1);
+		}
 	}
 
 }

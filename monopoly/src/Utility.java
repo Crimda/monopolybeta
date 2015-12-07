@@ -16,7 +16,13 @@ public class Utility extends Space
     {
         return price;
     }
-    
+
+	@Override
+	public void setOwnerID(int id)
+	{
+		this.ownerID = id;
+	}
+
 	@Override
 	public void setHouses(int houses)
 	{} // Disabled

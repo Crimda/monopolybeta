@@ -5,6 +5,13 @@
 
 public class UI
 {
+	
+	private static String id2text(int id)
+	{
+		if (id == -1) return " ";
+		else return ""+id;
+	}
+
 	public static void drawMap(GameState gs)
 	{ // Currently a placeholder; TODO: Implement map logic
 		System.out.print("+============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
@@ -54,7 +61,16 @@ public class UI
 		}
 		System.out.print("    |\n");
 
-		System.out.print("|   (OMG!)   | |1   M220   1| |            | |1   M220   1| |1   M240   1| |1   M200   1| |1   M260   1| |1   M260   1| |1   M150   1| |1   M280   1| |!   JAIL   !|\n"); // TODO: Owner player number slot
+		// I am ashamed of this line
+		System.out.printf("|   (OMG!)   | |%s   M220    | |            | |%s   M220    | |%s   M240    | |%s   M200    | |%s   M260    | |%s   M260    | |%s   M150    | |%s   M280    | |!   JAIL   !|\n",
+				id2text(gs.properties[21].getOwnerID()),
+				id2text(gs.properties[23].getOwnerID()),
+				id2text(gs.properties[24].getOwnerID()),
+				id2text(gs.properties[25].getOwnerID()),
+				id2text(gs.properties[26].getOwnerID()),
+				id2text(gs.properties[27].getOwnerID()),
+				id2text(gs.properties[28].getOwnerID()),
+				id2text(gs.properties[29].getOwnerID()));
 		System.out.print("+============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");
@@ -133,7 +149,9 @@ public class UI
 			System.out.print("    |\n");
 		}
 		
-		System.out.print("|1   M200   1|                                                                                                                                        |1   M300   1|\n"); // TODO: Owner player slot
+		System.out.printf("|%s   M200    |                                                                                                                                        |%s   M300    |\n",
+				id2text(gs.properties[19].getOwnerID()),
+				id2text(gs.properties[31].getOwnerID())); // TODO: Owner player slot
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");
@@ -213,7 +231,9 @@ public class UI
 		}
 
 		////////////////////////////////
-		System.out.print("|1   M180   1|                                                                                                                                        |1   M300   1|\n"); // TODO: Owner player slot
+		System.out.printf("|%s   M180    |                                                                                                                                        |%s   M300    |\n",
+				id2text(gs.properties[18].getOwnerID()),
+				id2text(gs.properties[33].getOwnerID()));
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");
@@ -335,7 +355,9 @@ public class UI
 		}
 
 		////////////////////////////////
-		System.out.print("|1   M180   1|                                                                                                                                        |1   M220   1|\n"); // TODO: Owner player slot
+		System.out.printf("|%s   M180    |                                                                                                                                        |%s   M220    |\n",
+				id2text(gs.properties[16].getOwnerID()),
+				id2text(gs.properties[34].getOwnerID()));
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");
@@ -376,7 +398,9 @@ public class UI
 		}
 		
 		////////////////////////////////
-		System.out.print("|1   M200   1|                                                                                                                                        |1   M200   1|\n"); // TODO: Owner player slot
+		System.out.printf("|%s   M200    |                                                                                                                                        |%s   M200    |\n",
+				id2text(gs.properties[15].getOwnerID()),
+				id2text(gs.properties[35].getOwnerID()));
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");
@@ -441,7 +465,8 @@ public class UI
 		}
 		
 		////////////////////////////////
-		System.out.print("|1   M160   1|                                                                                                                                        |            |\n"); // TODO: Owner player slot
+		System.out.printf("|%s   M160    |                                                                                                                                        |            |\n",
+				id2text(gs.properties[14].getOwnerID()));
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");
@@ -522,7 +547,9 @@ public class UI
 		}
 
 		////////////////////////////////
-		System.out.print("|1   M140   1|                                                                                                                                        |1   M350   1|\n"); // TODO: Owner player slot
+		System.out.printf("|%s   M140    |                                                                                                                                        |%s   M350    |\n",
+				id2text(gs.properties[13].getOwnerID()),
+				id2text(gs.properties[37].getOwnerID()));
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");
@@ -562,7 +589,8 @@ public class UI
 		}
 
 		////////////////////////////////
-		System.out.print("|1   M150   1|                                                                                                                                        |  PAY M100  |\n"); // TODO: Owner player slot
+		System.out.printf("|%s   M150    |                                                                                                                                        |  PAY M100  |\n",
+				id2text(gs.properties[12].getOwnerID())); // TODO: Owner player slot
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");
@@ -642,13 +670,14 @@ public class UI
 		}
 
 		////////////////////////////////
-		System.out.print("|1   M140   1|                                                                                                                                        |1   M400   1|\n"); // TODO: Owner player slot
+		System.out.printf("|%s   M140    |                                                                                                                                        |%s   M400    |\n",
+				id2text(gs.properties[11].getOwnerID()),
+				id2text(gs.properties[39].getOwnerID()));
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
 		System.out.print("|  Visiting  | | Conn. Ave. | | Verm. Ave. | |            | | Orie. Ave. | |  Reading   | |   INCOME   | | Balt. Ave. | |  Community | | Medi. Ave. | |    G  O    |\n");
 		System.out.print("+J  +========+ +============+ +============+ |   CHANCE   | +============+ |  Railroad  | |     TAX    | +============+ |    Chest   | +============+ |  <------   |\n");
-//		System.out.print("|U  |   IN   | |            | |            | |   CHANCE   | |            | |            | |            | |            | |            | |            | |  <------   |\n"); // TODO: hotels and houses line
 
 		System.out.print("|U  |   In   | |    ");
 		for (int offset = 9; offset > -1; offset--)
@@ -692,7 +721,14 @@ public class UI
 		}
 		System.out.print("    |\n");
 
-		System.out.print("|T  |  JAIL  | |1   M120   1| |1   M100   1| |            | |1   M100   1| |1   M200   1| |  PAY M200  | |1    M60   1| |            | |1    M60   1| |            |\n"); // TODO: Owner player slot
+//		System.out.print("|T  |  JAIL  | |1   M120   1| |1   M100   1| |            | |1   M100   1| |1   M200   1| |  PAY M200  | |1    M60   1| |            | |1    M60   1| |            |\n"); // TODO: Owner player slot
+		System.out.printf("|T  |  JAIL  | |%s   M120    | |%s   M100    | |            | |%s   M100    | |%s   M200    | |  PAY M200  | |%s    M60    | |            | |%s    M60    | |            |\n",
+				id2text(gs.properties[9].getOwnerID()),
+				id2text(gs.properties[8].getOwnerID()),
+				id2text(gs.properties[6].getOwnerID()),
+				id2text(gs.properties[5].getOwnerID()),
+				id2text(gs.properties[3].getOwnerID()),
+				id2text(gs.properties[1].getOwnerID()));
 		System.out.print("+==+=========+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
 	}
 	

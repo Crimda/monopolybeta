@@ -10,6 +10,10 @@ public class FreeParking extends Space
     }
 
 	@Override
+	public void setOwnerID(int it)
+	{} // Disabled
+
+	@Override
 	public void setHouses(int houses)
 	{} // Disabled
 

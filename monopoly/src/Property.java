@@ -5,7 +5,6 @@
  */
 public class Property extends Space
 {
-    int Owner = -1;
     int price; 
     
     
@@ -21,16 +20,6 @@ public class Property extends Space
         return price;
     }
     
-    public void setOwner(Player player)
-    {
-        Owner = player.getID();
-    }
-    
-    public int getOwner()
-    {
-        return Owner;
-    }
-
 	@Override
 	public void setHouses(int houses)
 	{
@@ -41,6 +30,18 @@ public class Property extends Space
 	public void setHotel(boolean yesno)
 	{
 		this.hotel = yesno;
+	}
+
+	@Override
+	public void setOwnerID(int id)
+	{
+		this.ownerID = id;
+	}
+
+	@Override
+	public int getOwnerID()
+	{
+		return this.ownerID;
 	}
         
         @Override

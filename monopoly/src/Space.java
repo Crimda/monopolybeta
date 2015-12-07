@@ -9,7 +9,16 @@ public abstract class Space
     int houses = 0;
     boolean hotel = false;
     boolean mortgage = false;
+
+    int ownerID = -1;
     
+	public abstract void setOwnerID(int id);
+
+	public int getOwnerID()
+	{
+		return this.ownerID;
+	}
+
 	public int getHouses()
 	{
             return this.houses;

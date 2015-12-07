@@ -19,6 +19,10 @@ public class Tax extends Space
     }
 	
 	@Override
+	public void setOwnerID(int id)
+	{} // Disabled
+
+	@Override
 	public void setHouses(int houses)
 	{} // Disabled
 
