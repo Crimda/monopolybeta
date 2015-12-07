@@ -8,10 +8,9 @@ import java.util.*;
 public class Player 
 {
     int playerID;
-    int turn = 0;
     int position = 0;
     String name; 
-    boolean bankrupt = false; 
+
     Money money = new Money(1500); //look up starting cash for real game
 
 	boolean inJail = false;
@@ -35,16 +34,6 @@ public class Player
 		}
 	}
 
-    public void nextTurn()
-    {
-        turn++;
-    }
-    
-    public int getTurn()
-    {
-        return turn;
-    }
-    
     public void setPos(int position)
     {
         this.position = position;
@@ -77,29 +66,31 @@ public class Player
    
     public Money getMoney() 
     {
-	return money;
+		return money;
     }
 	
     public int getID() 
     {
-	return playerID;
+		return playerID;
     }
     
-    //player tosses a die 
     public int rollDice()
-    {
+    { // Roll the fookin dice
         int rollResult = Dice.getRoll();
         System.out.println(getName() + "tosses the die... the result is: " + rollResult);
         return rollResult;                 
     }
     
     public void setBankrupt(boolean bankrupt) 
-    {
-	this.bankrupt = bankrupt;
+    { // Set a player forcibly to bankrupt
+		this.money.setMoney(0);
     }
 	
     public boolean isBankrupt() 
-    {
-	return bankrupt;
+    { // Return whether money is at 0 or less
+    	if (this.money.getMoney() <= 0)
+    		return true;
+
+    	return false;
     }  
 }

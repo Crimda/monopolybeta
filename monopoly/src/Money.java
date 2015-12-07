@@ -8,13 +8,13 @@ public class Money
 	
     public Money() 
     {
-	this(0);
+		this(0);
     }
     
     //methods
     public Money(int money) 
     {
-	this.money = money;
+		this.money = money;
     }
 	
     public int getMoney() //mo money mo problems
@@ -24,16 +24,21 @@ public class Money
 	
     public void addMoney(int amount) 
     {
-        money += amount;
+		this.money += amount;
+    }
+
+    public void setMoney(int amount)
+    {
+    	this.money = amount;
     }
 	
     public void subtractMoney(int amount) 
     {
-	money -= amount;
+		this.money -= amount;
     }
 	
     public boolean bankrupt() 
     {
-	return money < 0;
-    }
+		return this.money < 0;
+	}
 }

@@ -9,6 +9,8 @@ public class GameState
 	public Player[] players;
 	public Space[] properties;
 
+	int turn = 0;
+
 	public GameState(int playerCount)
 	{
 		this.playerCount = playerCount;
