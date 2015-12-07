@@ -12,7 +12,7 @@ public class Go extends Space
 {
     public Go(String name) 
     {
-	super(name);
+		super(name);
     }
 	
     @Override

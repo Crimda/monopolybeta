@@ -7,7 +7,6 @@ public class UI
 {
 	public static void drawMap(GameState gs)
 	{ // Currently a placeholder; TODO: Implement map logic
-
 		System.out.print("+============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
 		System.out.print("|    FREE    | | Kent. Ave. | |            | | Indi. Ave. | | Illi. Ave. | |    B&O     | | Atla. Ave. | | Vent. Ave. | |    Water   | | Marvin Ga. | |!   GTFO   !|\n");
 		System.out.print("|            | +============+ |            | +============+ +============+ |  Railroad  | +============+ +============+ |    Works   | +============+ |            |\n");

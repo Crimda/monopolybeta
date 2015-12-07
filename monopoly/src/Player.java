@@ -2,6 +2,9 @@
  *
  * @author Brad
  */
+
+import java.util.*;
+
 public class Player 
 {
     int playerID;
@@ -10,13 +13,26 @@ public class Player
     String name; 
     boolean bankrupt = false; 
     Money money = new Money(1500); //look up starting cash for real game
-    
+
+    int numRailroads = 0;
+    int numUtilities = 0;
+
+	List<Integer> ownedProperties = new ArrayList<Integer>();
+
     public Player (int playerId, String name)
     {
         this.playerID = playerId; 
         this.name = name;
     }
     
+	public void buyProperty(int property, int value)
+	{
+		if (this.money.getMoney() > value)
+		{
+			this.ownedProperties.add(property);
+		}
+	}
+
     public void nextTurn()
     {
         turn++;
