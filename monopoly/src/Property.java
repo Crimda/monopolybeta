@@ -6,9 +6,8 @@
 public class Property extends Space
 {
     int Owner = -1;
-    int houses; 
-    boolean hasHotel;
-    boolean hasHouse;
+    int houses = 0; 
+    boolean hotel;
     int price; 
     
     
@@ -31,11 +30,29 @@ public class Property extends Space
     
     public int getOwner()
     {
-     return Owner;
+        return Owner;
     }
     
+    public void setHouses(int houses)
+    {
+        this.houses = houses; 
+    }
     
+    public int getHouses()
+    {
+        return houses;
+    }
    
+    public void setHotel(boolean hotel)
+    {
+        this.hotel = hotel;
+    }
+    
+    public boolean hasHotel()
+    {
+        return hotel;
+    }
+    
     @Override 
     public void action(Player player, Board board)
     {   
