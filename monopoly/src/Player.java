@@ -41,19 +41,22 @@ public class Player
         this.position = position;
     }
 
-    public void movePlayer()
-    {
-    	if (this.inJail) return;
-		
-    	int dieRoll = this.rollDice();
+    public boolean movePlayer()
+    { // returns true if the player rolled doubles and may move again
+    	if (this.inJail) return false;
 
-    	this.position += dieRoll;
+		int[] dieRoll = Dice.rollDice();
+
+		this.position += dieRoll[2];
 
     	if (this.position > 39)
     	{
     		this.position -= 39;
     		this.money.addMoney(200);
     	}
+
+    	if (dieRoll[0] == dieRoll[1]) return true;
+    	return false;
     }
     
 	public void setInJail()
@@ -83,7 +86,7 @@ public class Player
 
     public boolean jailTime()
     { // Returns false if a player attempted an invalid action, true otherwise
-    	if (!this.inJail) return;
+    	if (!this.inJail) return false;
 
     	int choice = 0;
 
@@ -101,7 +104,7 @@ public class Player
     		if (this.escapeAttempts < 3)
     		{
     			this.escapeAttempts += 1;
-    			int[3] dieRoll = Dice.getRoll();
+    			int[] dieRoll = Dice.getRoll();
     			if (dieRoll[0] == dieRoll[1])
     			{
     				this.inJail = false;
@@ -152,14 +155,6 @@ public class Player
 		}
     }
 
-    
-    public int rollDice()
-    { // Roll the fookin dice
-        int rollResult = Dice.getRoll();
-        System.out.println(getName() + "tosses the die... the result is: " + rollResult);
-        return rollResult;                 
-    }
-    
     public void setBankrupt(boolean bankrupt) 
     { // Set a player forcibly to bankrupt
 		this.money.setMoney(0);
