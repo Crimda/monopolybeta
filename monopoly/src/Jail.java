@@ -8,22 +8,16 @@
  *
  * @author Brad
  */
-public class Tax extends Space
-{
-	int taxAmount;
-
-    public Tax(String name, int charge) 
+public class Jail extends Space 
+{   
+    public Jail(String name) 
     {
-        super(name);
-        this.taxAmount = charge;
+	super(name);
     }
 	
     @Override
     public void action(Player player, Board board) 
     {
-        System.out.println("You have the misfortune of appearing wealthy, you lose $" + taxAmount);
-        player.getMoney().subtractMoney(taxAmount);
+    System.out.println("I am placeholder, ignore");
     }
-    
 }
-
