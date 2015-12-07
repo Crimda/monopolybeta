@@ -62,6 +62,12 @@ public class GameState
 		this.properties[37] = new Property("Park Place", 350);
 		this.properties[38] = new Tax("Luxury Tax", 100);
 		this.properties[39] = new Property("Boardwalk", 400);
+
+
+		// Debug lines
+		for (int i = 0; i < 40; i++)
+			this.properties[i].setHotel(true);
 	}
+
 }
 
