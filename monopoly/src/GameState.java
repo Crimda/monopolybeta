@@ -24,7 +24,7 @@ public class GameState
 		this.properties[1] = new Property("Mediteranean Avenue", 60);
 //		this.properties[2] = new //TODO: Community chest
 		this.properties[3] = new Property("Baltic Avenue", 60);
-//		this.properties[4] = new //TODO: Income tax @ 200
+		this.properties[4] = new Tax("Income Tax", 200);
 //		this.properties[5] = new //TODO: Railroad
 		this.properties[6] = new Property("Oriental Avenue", 100);
 //		this.properties[7] = new //TODO: Chance
@@ -58,7 +58,7 @@ public class GameState
 //		this.properties[35] = new //TODO: Railroad
 //		this.properties[36] = new //TODO: Chance
 		this.properties[37] = new Property("Park Place", 350);
-//		this.properties[38] = new //TODO: Luxury tax @ 100
+		this.properties[38] = new Tax("Luxury Tax", 100);
 		this.properties[39] = new Property("Boardwalk", 400);
 	}
 }

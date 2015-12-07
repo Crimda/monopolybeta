@@ -8,18 +8,21 @@
  *
  * @author Brad
  */
-public class LuxTax extends Space
+public class Tax extends Space
 {
-    public LuxTax(String name) 
+	int taxAmount;
+
+    public Tax(String name, int charge) 
     {
         super(name);
+        this.taxAmount = charge;
     }
 	
     @Override
     public void action(Player player, Board board) 
     {
-        System.out.println("You have the misfortune of appearing wealthy, you lose $100");
-        player.getMoney().substractMoney(100);
+        System.out.println("You have the misfortune of appearing wealthy, you lose $" + taxAmount);
+        player.getMoney().substractMoney(taxAmount);
     }
     
 }
