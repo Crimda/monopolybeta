@@ -7,21 +7,29 @@ public abstract class Space
     String name;
     String color;
     int houses = 0;
-	boolean hotel = false;
-   
+    boolean hotel = false;
+    boolean mortgage = false;
+    
 	public int getHouses()
 	{
-		return this.houses;
+            return this.houses;
 	}
 
 	public abstract void setHouses(int houses);
-
+        
 	public boolean getHotel()
 	{
-		return this.hotel;
+            return this.hotel;
 	}
 
 	public abstract void setHotel(boolean yesno);
+        
+        public boolean getMortgage()
+        {
+            return this.mortgage;
+        }
+        
+        public abstract void setMortgage(boolean yesno);
 
     public Space(String name) 
     {
