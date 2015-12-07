@@ -14,6 +14,8 @@ public class Player
     boolean bankrupt = false; 
     Money money = new Money(1500); //look up starting cash for real game
 
+	boolean inJail = false;
+
     int numRailroads = 0;
     int numUtilities = 0;
 
@@ -47,6 +49,21 @@ public class Player
     {
         this.position = position;
     }
+
+    public void movePlayer()
+    {
+    	if (this.inJail) return;
+		
+    	int dieRoll = this.rollDice();
+
+    	this.position += dieRoll;
+
+    	if (this.position > 39)
+    	{
+    		this.position -= 39;
+    		this.money.addMoney(200);
+    	}
+    }
     
     public int getPos()
     {
@@ -69,9 +86,9 @@ public class Player
     }
     
     //player tosses a die 
-    public int rollDice(Dice dice)
+    public int rollDice()
     {
-        int rollResult = dice.getRoll();
+        int rollResult = Dice.getRoll();
         System.out.println(getName() + "tosses the die... the result is: " + rollResult);
         return rollResult;                 
     }
