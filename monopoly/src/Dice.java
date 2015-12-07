@@ -7,12 +7,19 @@ import java.util.Random;
 
 public class Dice 
 {
-    public int getRoll() 
+    public static int[] getRoll() 
         {
+        int[] roll = new int[3];
 	Random rand = new Random();
-	int roll = 1+rand.nextInt(6);
-	return roll;
-	}    
+        int r1 = 1+rand.nextInt(6);
+        int r2 = 1+rand.nextInt(6);
+	int combined = (r1 + r2); 
+        roll[0] = r1; 
+        roll[1] = r2; 
+        roll[3] = combined; 
+        return roll;
+        }
+        
 }
 
 
