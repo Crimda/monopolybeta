@@ -22,7 +22,7 @@ public class Tax extends Space
     public void action(Player player, Board board) 
     {
         System.out.println("You have the misfortune of appearing wealthy, you lose $" + taxAmount);
-        player.getMoney().substractMoney(taxAmount);
+        player.getMoney().subtractMoney(taxAmount);
     }
     
 }

@@ -27,7 +27,7 @@ public class Money
         money += amount;
     }
 	
-    public void substractMoney(int amount) 
+    public void subtractMoney(int amount) 
     {
 	money -= amount;
     }
