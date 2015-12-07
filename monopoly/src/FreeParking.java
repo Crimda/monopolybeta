@@ -2,9 +2,9 @@
  *
  * @author Brad
  */
-public class freeParking extends Space 
+public class FreeParking extends Space 
 {   
-    public freeParking(String name) 
+    public FreeParking(String name) 
     {
 	super(name);
     }
