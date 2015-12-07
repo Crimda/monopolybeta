@@ -30,6 +30,18 @@ public class Property extends Space
     {
         return Owner;
     }
+
+	@Override
+	public void setHouses(int houses)
+	{
+		this.houses = houses;
+	}
+
+	@Override
+	public void setHotel(boolean yesno)
+	{
+		this.hotel = yesno;
+	}
    
     @Override 
     public void action(Player player, Board board)

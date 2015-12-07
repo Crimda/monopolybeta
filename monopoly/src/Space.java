@@ -14,20 +14,14 @@ public abstract class Space
 		return this.houses;
 	}
 
-	public abstract void setHouses(int houses)
-	{
-		this.houses = houses;
-	}
+	public abstract void setHouses(int houses);
 
 	public boolean getHotel()
 	{
 		return this.hotel;
 	}
 
-	public abstract boolean setHotel(boolean yesno)
-	{
-		this.hotel = yesno;
-	}
+	public abstract void setHotel(boolean yesno);
 
     public Space(String name) 
     {
