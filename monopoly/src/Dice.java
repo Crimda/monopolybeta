@@ -16,7 +16,7 @@ public class Dice
 	int combined = (r1 + r2); 
         roll[0] = r1; 
         roll[1] = r2; 
-        roll[3] = combined; 
+        roll[2] = combined; 
         return roll;
         }
         
