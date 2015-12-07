@@ -15,6 +15,14 @@ public class Jail extends Space
 	super(name);
     }
 	
+	@Override
+	public void setHouses(int houses)
+	{} // Disabled
+
+	@Override
+	public void setHotel(boolean yesno)
+	{} // Disabled
+
     @Override
     public void action(Player player, Board board) 
     {
