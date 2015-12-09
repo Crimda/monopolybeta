@@ -3,7 +3,7 @@
  * @author Brad
  */
 import java.util.Scanner;
-public class input 
+public class Input 
 {
     public static String getString(Scanner sc, String prompt)
     {

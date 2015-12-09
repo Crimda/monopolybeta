@@ -5,7 +5,6 @@
 
 public class UI
 {
-	
 	private static String id2text(int id)
 	{
 		if (id == -1) return " ";
@@ -57,9 +56,9 @@ public class UI
 			else if (gs.playerCount < 4) System.out.print(" ");
 
 			if (offset < 30) // Helper as this line draws odd :/
-				System.out.print("    | |    ");
+				System.out.print("     | |    ");
 		}
-		System.out.print("    |\n");
+		System.out.print("     |\n");
 
 		// I am ashamed of this line
 		System.out.printf("|   (OMG!)   | |%s   M220    | |            | |%s   M220    | |%s   M240    | |%s   M200    | |%s   M260    | |%s   M260    | |%s   M150    | |%s   M280    | |!   JAIL   !|\n",
@@ -132,7 +131,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// Pacific Ave.
@@ -146,7 +145,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 		
 		System.out.printf("|%s   M200    |                                                                                                                                        |%s   M300    |\n",
@@ -213,7 +212,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// North Carolina Ave.
@@ -227,7 +226,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 
 		////////////////////////////////
@@ -256,7 +255,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// Community Chest 3
@@ -270,7 +269,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 
 		////////////////////////////////
@@ -337,7 +336,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// Pennsylvania Ave.
@@ -351,7 +350,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 
 		////////////////////////////////
@@ -380,7 +379,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// Pennsylvania Ave.
@@ -394,7 +393,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 		
 		////////////////////////////////
@@ -447,7 +446,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// Short Line
@@ -461,7 +460,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 		
 		////////////////////////////////
@@ -529,7 +528,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// Park Place
@@ -543,7 +542,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 
 		////////////////////////////////
@@ -571,7 +570,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// Luxury Tax
@@ -585,7 +584,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 
 		////////////////////////////////
@@ -652,7 +651,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |                                                                                                                                        ");
+			System.out.print("     |                                                                                                                                        ");
 
 			System.out.print("|    ");
 			// Board Walk
@@ -666,7 +665,7 @@ public class UI
 			if (gs.playerCount < 3) System.out.print(" ");
 			else if (gs.playerCount < 4) System.out.print(" ");
 
-			System.out.print("    |\n");
+			System.out.print("     |\n");
 		}
 
 		////////////////////////////////
@@ -717,9 +716,9 @@ public class UI
 			else if (gs.playerCount < 4) System.out.print(" ");
 
 			if (offset > 0) // Helper as this line draws odd :/
-				System.out.print("    | |    ");
+				System.out.print("     | |    ");
 		}
-		System.out.print("    |\n");
+		System.out.print("     |\n");
 
 //		System.out.print("|T  |  JAIL  | |1   M120   1| |1   M100   1| |            | |1   M100   1| |1   M200   1| |  PAY M200  | |1    M60   1| |            | |1    M60   1| |            |\n"); // TODO: Owner player slot
 		System.out.printf("|T  |  JAIL  | |%s   M120    | |%s   M100    | |            | |%s   M100    | |%s   M200    | |  PAY M200  | |%s    M60    | |            | |%s    M60    | |            |\n",
@@ -826,6 +825,12 @@ public class UI
 	public static void draw(String test)
 	{
 		System.out.println(test);
+	}
+
+	public static void clearScreen()
+	{
+		for (int i = 0; i < 100; i++)
+			System.out.print("\n");
 	}
 }
 
