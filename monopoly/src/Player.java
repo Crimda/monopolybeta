@@ -20,6 +20,7 @@ public class Player
     int numRailroads = 0;
     int numUtilities = 0;
 
+	// This is basically a player-owned list of properties
 	List<Integer> ownedProperties = new ArrayList<Integer>();
 
     public Player (int playerId, String name)
@@ -33,6 +34,7 @@ public class Player
 		if (this.money.getMoney() > value)
 		{
 			this.ownedProperties.add(property);
+			this.money.subtractMoney(value);
 		}
 	}
 
