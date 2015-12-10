@@ -199,7 +199,7 @@ public class GameManager
 					{ // Landed on another player's property. Pay rent if needed
 						if (!this.paidRentThisTurn)
 						{
-							System.out.println("Paying due of " + this.gs.properties[ppos].getPrice() + " to " + this.gs.players[ownerID].getName());
+							System.out.println("Paying due of " + this.gs.properties[ppos].getRent() + " to " + this.gs.players[ownerID].getName());
 							this.gs.players[this.gs.turn].takeMoney(this.gs.properties[ppos].getRent());
 							this.gs.players[ownerID].giveMoney(this.gs.properties[ppos].getRent());
 							this.paidRentThisTurn = true;
