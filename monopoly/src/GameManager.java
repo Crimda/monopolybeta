@@ -67,6 +67,12 @@ public class GameManager
 		this.showStatus();
 	}
 
+	private void prompt()
+	{
+		System.out.println("=Press enter to continue=");
+		this.scnr.nextLine();
+	}
+
 	public void mainLoop()
 	{
 		while (!this.gameOver)
@@ -90,6 +96,14 @@ public class GameManager
 				{ // Handle pre-roll state
 					// Update display (Pre-roll)
 					this.redraw();
+
+					if (this.gs.players[this.gs.turn].isBankrupt())
+					{ // Handle player having 0 or less moneys
+						System.out.println("You are bankrupt! Sell some properties or declare bankruptcy!");
+						this.prompt();
+						this.turnState = 10;
+					} else
+
 					if (this.gs.players[this.gs.turn].getInJail())
 					{
 						System.out.printf("You are in jail! You have made %d/3 escape attempts! What would you like to do?\n\t> ", this.gs.players[this.gs.turn].getEscapeAttempts());
@@ -97,7 +111,7 @@ public class GameManager
 
 						if (attempts == 0)
 						{
-							int choice = this.getChoice("1 - Roll Dice\n2 - Pay Fine\n3 - Use Get-Out-Of-Jail-Free Card\n4 - Manage Properties\n\t> ", 1, 4);
+							int choice = this.getChoice("1 - Roll Dice\n2 - Pay Fine($50)\n3 - Use Get-Out-Of-Jail-Free Card\n4 - Manage Properties\n\t> ", 1, 4);
 							if (choice == 1)
 							{
 								this.gs.players[this.gs.turn].incEscapeAttempts();
@@ -108,6 +122,11 @@ public class GameManager
 									this.gs.players[this.gs.turn].movePlayer(dieRoll[3]);
 									this.numDoubles += 1;
 									this.turnState = 2;
+								}
+								else
+								{
+									System.out.println("You failed to escape!");
+									this.prompt();
 								}
 							}
 							if (choice == 2)
@@ -125,12 +144,14 @@ public class GameManager
 						{
 							if (attempts == 3)
 							{
-								int choice = this.getChoice("1 - Pay fine\n2 - Manage Properties\n\t> ", 1, 2);
+								int choice = this.getChoice("1 - Pay fine($50)\n2 - Manage Properties\n\t> ", 1, 2);
 								if (choice == 1)
 								{
 									this.gs.players[this.gs.turn].takeMoney(50);
 									this.gs.players[this.gs.turn].setInJail(false);
 									this.turnState = -1;
+									System.out.println("You pay your fine of $50.");
+									this.prompt();
 								}
 								if (choice == 2)
 									this.turnState = 10;
@@ -148,6 +169,11 @@ public class GameManager
 										this.gs.players[this.gs.turn].movePlayer(dieRoll[3]);
 										this.numDoubles += 1;
 										this.turnState = 2;
+									}
+									else
+									{
+										System.out.println("You fail to escape!");
+										this.prompt();
 									}
 								}
 								if (choice == 2)
@@ -248,6 +274,14 @@ public class GameManager
 								{
 									this.gs.properties[ppos].setOwnerID(this.gs.turn);
 									this.gs.properties[ppos].setBuyable(false);
+
+									System.out.println("You bought " + this.gs.properties[ppos].getName() + "!");
+									this.prompt();
+								}
+								else
+								{
+									System.out.println("You don't have enough money to buy " + this.gs.properties[ppos].getName());
+									this.prompt();
 								}
 							}
 							if (choice == 3)
@@ -273,6 +307,13 @@ public class GameManager
 								{
 									this.gs.properties[ppos].setOwnerID(this.gs.turn);
 									this.gs.properties[ppos].setBuyable(false);
+									System.out.println("You bought " + this.gs.properties[ppos].getName() + "!");
+									this.prompt();
+								}
+								else
+								{
+									System.out.println("You don't have enough money to buy " + this.gs.properties[ppos].getName());
+									this.prompt();
 								}
 							}
 							if (choice == 2)
@@ -294,11 +335,14 @@ public class GameManager
 				{// if 10: go back to 0 on end, if 11: go back to 2 on end
 					this.redraw();
 					System.out.println("What do you want to do?");
-					int choice = this.getChoice("1 - Mortgage a Property\n2 - Declare Bankruptcy\n3 - Go Back\n\t> ", 1, 3);
+					int choice = this.getChoice("1 - Mortgage a Property\n2 - Upgrade a property\n3 - Declare Bankruptcy\n4 - Go Back\n\t> ", 1, 4);
 					if (choice == 1)
 					{// Handle generating a list of properties to mortgage
 					}
 					if (choice == 2)
+					{// Handle generated a list of properties to upgrade
+					}
+					if (choice == 3)
 					{// Handle declaring bankruptcy
 						// Remove all properties owned by the player
 						for (int i = 0; i < 40; i++)
@@ -310,7 +354,7 @@ public class GameManager
 						this.gs.players[this.gs.turn].setBankrupt();
 						this.turnState = -1;
 					}
-					if (choice == 3)
+					if (choice == 4)
 					{// Bake a cake I mean go back. Yeah. That.
 						if (this.turnState == 10) this.turnState = 0;
 						if (this.turnState == 11) this.turnState = 2;
@@ -326,6 +370,6 @@ public class GameManager
 		}
 		UI.clearScreen();
 		System.out.printf("%s Wins!\n", this.gs.players[this.gs.turn].getName());
-		Input.getString(this.scnr, "Enter random chars here and hit enter to exit!");
+		this.prompt();
 	}
 }
