@@ -516,7 +516,7 @@ public class GameManager
 								continue;
 							}
 
-							System.out.println("You will get " + this.gs.properties[propertyChoice].getMortgage() + ", are you sure?");
+							System.out.println("You will get " + this.gs.properties[propertyChoice].getMortgageValue() + ", are you sure?");
 							int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
 							if (finalChoice == 1)
 							{
