@@ -141,6 +141,43 @@ public class GameManager
 		}
 	}
 
+	private int chooseUpgradableProperty()
+	{// Get a valid property index for the management screen
+		// Test if player owns any property and return -1 if not
+		boolean valid = false;
+		for (int i = 0; i < 40; i++)
+		{
+			if (this.gs.properties[i].getOwnerID() == this.gs.turn)
+			{
+				if (this.gs.properties[i].getCanUpgrade())
+				{
+					valid = true;
+					break;
+				}
+			}
+		}
+
+		if (!valid) return -1;
+
+		while (true)
+		{
+			UI.clearScreen();
+			for(int i = 0; i < 40; i++)
+			{
+				if (this.gs.properties[i].getOwnerID() == this.gs.turn)
+					if (this.gs.properties[i].getCanUpgrade())
+						System.out.printf("%d  -  %s\n", i, this.gs.properties[i].getName());
+			}
+			System.out.print("\n");
+			int choice = this.getChoice("Please choose the property you wish to modify.", 1, 40);
+
+			if (this.gs.properties[choice].getOwnerID() == this.gs.turn)
+			{
+				if (this.gs.properties[choice].getCanUpgrade())
+					return choice;
+			}
+		}
+	}
 
 	public void mainLoop()
 	{
@@ -408,7 +445,7 @@ public class GameManager
 					if (choice == 1)
 					{// Handle generating a list of properties to mortgage
 						System.out.println("Which would you like to do?");
-						int subChoice = this.getChoice("1 - Mortgage\n2 - Buy back\n3 - Cancel", 1, 3);
+						int subChoice = this.getChoice("1 - Mortgage\n2 - Buy back\n3 - Cancel\n\t> ", 1, 3);
 						if (subChoice == 1)
 						{
 							int propertyChoice = this.chooseProperty();
@@ -416,12 +453,21 @@ public class GameManager
 							{
 								System.out.println("You do not own any properties!");
 								this.prompt();
+								continue;
 							}
 
 							if (this.gs.properties[propertyChoice].getHouses() > 0 || this.gs.properties[propertyChoice].getHotel())
 							{
 								System.out.println("You must sell all property upgrades before you can mortgage!");
 								this.prompt();
+								continue;
+							}
+
+							if (this.gs.properties[propertyChoice].getMortgage())
+							{
+								System.out.println("You cannot mortgage a property a second time >_>");
+								this.prompt();
+								continue;
 							}
 
 							System.out.println("You will get " + this.gs.properties[propertyChoice].getMortgage() + ", are you sure?");
@@ -437,6 +483,20 @@ public class GameManager
 						if (subChoice == 2)
 						{
 							int propertyChoice = chooseMortgagedProperty();
+							if (propertyChoice == -1)
+							{
+								System.out.println("You do not own any properties!");
+								this.prompt();
+								continue;
+							}
+
+							if (!this.gs.properties[propertyChoice].getMortgage())
+							{
+								System.out.println("You cannot unmortgage a property that is not mortgaged >_>");
+								this.prompt();
+								continue;
+							}
+
 							System.out.println("You must pay " + (this.gs.properties[propertyChoice].getMortgageValue() / 0.1) + ", are you sure?");
 							int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
 							if (finalChoice == 1)
@@ -462,23 +522,15 @@ public class GameManager
 					if (choice == 2)
 					{// Handle generated a list of properties to upgrade
 						System.out.println("Which would you like to do?");
-						int subChoice = this.getChoice("1 - Upgrade\n2 - Downgrade\n3 - Cancel", 1, 3);
+						int subChoice = this.getChoice("1 - Upgrade\n2 - Downgrade\n3 - Cancel\n\t> ", 1, 3);
 						if (subChoice == 1)
 						{
-							int propertyChoice = 0;
-							while (true)
+							int propertyChoice = this.chooseUpgradableProperty();
+							if (propertyChoice == -1)
 							{
-								propertyChoice = this.chooseProperty();
-								if (propertyChoice == -1)
-								{
-									System.out.println("You do not own any properties!");
-									this.prompt();
-									break;
-								}
-								if (this.gs.properties[propertyChoice].getCanUpgrade())
-								{
-									break;
-								}
+								System.out.println("You do not own any properties!");
+								this.prompt();
+								continue;
 							}
 
 							this.redraw();
@@ -509,6 +561,7 @@ public class GameManager
 						}
 						if (choice == 2)
 						{// TODO: Implement downgrade submenu
+
 						}
 						if (choice == 3)
 							continue;
