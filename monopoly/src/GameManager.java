@@ -335,12 +335,56 @@ public class GameManager
 					{ // Landed on another player's property. Pay rent if needed
 						if (!this.paidRentThisTurn && !this.gs.properties[ppos].getMortgage())
 						{
-							System.out.println("Paying due of " + this.gs.properties[ppos].getRent() + " to " + this.gs.players[ownerID].getName());
-							this.gs.players[this.gs.turn].takeMoney(this.gs.properties[ppos].getRent());
-							this.gs.players[ownerID].giveMoney(this.gs.properties[ppos].getRent());
-							this.paidRentThisTurn = true;
+							if (ppos == 5 || ppos == 15 || ppos == 25 || ppos == 35)
+							{ // Handle railroads
+								int price = 0;
+								switch(this.gs.players[ownerID].getRailroads())
+								{
+									case 1:
+										price = 25;
+										break;
+									case 2:
+										price = 50;
+										break;
+									case 3:
+										price = 100;
+										break;
+									case 4:
+										price = 200;
+										break;
+								}
+								System.out.println("Paying due of $" + price + " to " + this.gs.players[ownerID].getName());
+								this.gs.players[this.gs.turn].takeMoney(price);
+								this.gs.players[ownerID].giveMoney(price);
+							} else
+							if (ppos == 12 || ppos == 28)
+							{
+								int price = 0;
+								int mult = 0;
+								switch(this.gs.players[ownerID].getUtilities())
+								{
+									case 1:
+										mult = 4;
+										break;
+									case 2:
+										mult = 10;
+										break;
+								}
+								int[] dieRoll = Dice.getRoll();
+								price = dieRoll[3]*mult;
+								System.out.println("Paying due of $" + price + " to " + this.gs.players[ownerID].getName());
+								this.gs.players[this.gs.turn].takeMoney(price);
+								this.gs.players[ownerID].giveMoney(price);
+							}
+							else
+							{
+								System.out.println("Paying due of $" + this.gs.properties[ppos].getRent() + " to " + this.gs.players[ownerID].getName());
+								this.gs.players[this.gs.turn].takeMoney(this.gs.properties[ppos].getRent());
+								this.gs.players[ownerID].giveMoney(this.gs.properties[ppos].getRent());
+								this.paidRentThisTurn = true;
+							}
 						}
-					}
+					} else
 
 					// Test if we landed on a tax property
 					if (ppos == 4 || ppos == 38)
@@ -348,18 +392,20 @@ public class GameManager
 						this.gs.players[this.gs.turn].takeMoney(this.gs.properties[ppos].getTaxRate());
 						this.paidRentThisTurn = true;
 						System.out.printf("Bad luck, you got taxed for %s!\n", this.gs.properties[ppos].getTaxRate());
-					}
+					} else
 
 					// Test if we landed on go to jail
 					if (ppos == 30)
 					{ // Send this punk to jail
 						this.gs.players[this.gs.turn].setInJail(true);
-					}
+						System.out.println("GO TO JAIL!");
+						this.prompt();
+					} else
 
 					// Test if we landed on chance
 					if (ppos == 7 || ppos == 22 || ppos == 36)
 					{ // TODO: Implement chance system
-					}
+					} else
 
 					// Test if we landed on community chest
 					if (ppos == 2 || ppos == 17 || ppos == 33)

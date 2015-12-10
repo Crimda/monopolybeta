@@ -39,6 +39,26 @@ public class Player
 		return retval;
 	}
 */
+ 	int getRailroads()
+ 	{
+ 		return this.numRailroads;
+ 	}
+
+ 	void setRailroads(int value)
+ 	{
+ 		this.numRailroads = value;
+ 	}
+
+ 	int getUtilities()
+ 	{
+ 		return this.numUtilities;
+ 	}
+
+ 	void setUtilities(int value)
+ 	{
+ 		this.numUtilities = value;
+ 	}
+
  	public int getNumMortgages()
  	{
  		return this.numMortgages;
