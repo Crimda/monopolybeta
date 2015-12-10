@@ -8,7 +8,6 @@ import java.util.Scanner;
 public class GameManager
 {
 	GameState gs;
-	boolean firstTurn = true;
 	Scanner scnr;
 
 	int turnState = 0;
@@ -73,7 +72,6 @@ public class GameManager
 		while (!this.gameOver)
 		{
 			// Handle player turn swapping
-			if (!this.firstTurn) this.gs.turn += 1;
 			if (this.gs.turn > this.gs.players.length - 1)
 				this.gs.turn = 0;
 
@@ -302,7 +300,6 @@ public class GameManager
 					}
 					if (choice == 2)
 					{// Handle declaring bankruptcy
-
 						// Remove all properties owned by the player
 						for (int i = 0; i < 40; i++)
 						{
@@ -311,6 +308,7 @@ public class GameManager
 						}
 						this.numAlivePlayers -= 1;
 						this.gs.players[this.gs.turn].setBankrupt();
+						this.turnState = -1;
 					}
 					if (choice == 3)
 					{// Bake a cake I mean go back. Yeah. That.
@@ -318,17 +316,16 @@ public class GameManager
 						if (this.turnState == 11) this.turnState = 2;
 					}
 				}
-
 			}
 
 			// Reset for the next turn
+			this.gs.turn += 1;
 			this.paidRentThisTurn = false;
 			this.turnState = 0;
 			this.numDoubles = 0;
-			if (this.firstTurn) this.firstTurn = false;
 		}
 		UI.clearScreen();
-		System.out.printf("%s Wins!\n", this.gs.players[this.gs.turn-1].getName());
-		Input.getString(this.scnr, "Press enter to exit!");
+		System.out.printf("%s Wins!\n", this.gs.players[this.gs.turn].getName());
+		Input.getString(this.scnr, "Enter random chars here and hit enter to exit!");
 	}
 }
