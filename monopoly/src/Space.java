@@ -10,6 +10,12 @@ public abstract class Space
     boolean hotel = false;
     boolean mortgage = false;
 
+    int price = 0;
+    int rent = 0;
+    int taxRate = 0;
+
+    boolean buyable = false;
+
     int ownerID = -1;
     
 	public abstract void setOwnerID(int id);
@@ -19,9 +25,31 @@ public abstract class Space
 		return this.ownerID;
 	}
 
+	public int getTaxRate()
+	{
+		return this.taxRate;
+	}
+
+	public boolean getBuyable()
+	{
+		return this.buyable;
+	}
+
+	public abstract void setBuyable(boolean value);
+
 	public int getHouses()
 	{
             return this.houses;
+	}
+
+	public int getPrice()
+	{
+		return this.price;
+	}
+
+	public int getRent()
+	{
+		return this.rent;
 	}
 
 	public abstract void setHouses(int houses);

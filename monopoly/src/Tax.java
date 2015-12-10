@@ -10,14 +10,16 @@
  */
 public class Tax extends Space
 {
-	int taxAmount;
-
     public Tax(String name, int charge) 
     {
         super(name);
-        this.taxAmount = charge;
+        this.taxRate = charge;
     }
 	
+	@Override
+	public void setBuyable(boolean value)
+	{} // Disabled
+
 	@Override
 	public void setOwnerID(int id)
 	{} // Disabled
@@ -35,10 +37,7 @@ public class Tax extends Space
 	{} // Disabled
     @Override
     public void action(Player player, Board board) 
-    {
-        System.out.println("You have the misfortune of appearing wealthy, you lose $" + taxAmount);
-        player.getMoney().subtractMoney(taxAmount);
-    }
+    {} // Disabled
     
 }
 

@@ -16,6 +16,8 @@ public class Player
 	boolean inJail = false;
 	int escapeAttempts = 0;
 	boolean hasGetOutOfJailFreeCard = false;
+	String invalidReason = "";
+	int escapeRollValue = 0;
 
     int numRailroads = 0;
     int numUtilities = 0;
@@ -29,13 +31,15 @@ public class Player
         this.name = name;
     }
     
-	public void buyProperty(int property, int value)
+	public boolean buyProperty(int property, int value)
 	{
 		if (this.money.getMoney() > value)
 		{
 			this.ownedProperties.add(property);
 			this.money.subtractMoney(value);
+			return true;
 		}
+		return false;
 	}
 
     public void setPos(int position)
@@ -61,9 +65,32 @@ public class Player
     	return false;
     }
     
-	public void setInJail()
-	{
-		this.inJail = true;
+    public boolean movePlayer(int amount)
+    { // always returns true
+    	this.position += amount;
+    	if (this.position > 39)
+    	{
+    		this.position -= 39;
+    		this.money.addMoney(200);
+    	}
+
+    	return true;
+    }
+
+    
+	public void setInJail(boolean value)
+	{ // Move the player to be in jail and set inJail
+		if (value == true)
+		{
+			this.position = 10;
+			this.inJail = true;
+		} else
+		this.inJail = false;
+	}
+
+	public boolean getInJail()
+	{ // Returns whether the player is in jail or not
+		return this.inJail;
 	}
 
     public int getPos()
@@ -80,83 +107,36 @@ public class Player
     {
 		return money;
     }
+
+    public int getTotalMoney()
+    {
+    	return this.money.getMoney();
+    }
+
+    public void giveMoney(int amount)
+    {
+    	this.money.addMoney(amount);
+    }
+
+    public void takeMoney(int amount)
+    {
+    	this.money.subtractMoney(amount);
+    }
 	
     public int getID() 
     {
 		return playerID;
     }
 
-    public boolean jailTime()
-    { // Returns false if a player attempted an invalid action, true otherwise
-    	if (!this.inJail) return false;
+    public int getEscapeAttempts()
+    { // Returns number of escape attempts from jail
+		return this.escapeAttempts;
+	}
 
-    	int choice = 0;
-
-		// TODO: Get player choice; 1 == roll, 2 == pay, 3 == use card(if possible), else == invalid
-		
-		if (this.escapeAttempts == 3)
-		{
-			this.money.subtractMoney(50);
-			this.inJail = false;
-			return true;
-		}
-
-    	if (choice == 1)
-    	{
-    		if (this.escapeAttempts < 3)
-    		{
-    			this.escapeAttempts += 1;
-    			int[] dieRoll = Dice.getRoll();
-    			if (dieRoll[0] == dieRoll[1])
-    			{
-    				this.inJail = false;
-    				// TODO: Move player post this
-    			}
-    			else
-    			{
-    				// TODO: inform player that they failed to escape
-    			}
-    		}
-    		return true;
-    	} else
-    	if (choice == 2)
-    	{
-    		if (this.escapeAttempts == 0)
-    		{
-	    		this.money.subtractMoney(50);
-				this.inJail = false;
-				return true;
-			}
-			else
-			{
-				// TODO: inform player that they may not roll again
-				return false;
-			}	
-		} else
-		if (choice == 3)
-		{
-			if (this.escapeAttempts == 0)
-			{
-				if (this.hasGetOutOfJailFreeCard)
-				{
-					this.hasGetOutOfJailFreeCard = false;
-					this.inJail = false;
-					return true;
-				}
-				else
-				{
-					// TODO: inform player that they lack a get out of jail free card
-					return false;
-				}
-			}
-			else
-			{
-				// TODO: inform player that they may not use the get out of jail free card after rolling
-				return false;
-			}
-		}
-		else return false;
-    }
+	public void incEscapeAttempts()
+	{ // Increments number of escape attempts used
+		this.escapeAttempts += 1;
+	}
 
     public void setBankrupt(boolean bankrupt) 
     { // Set a player forcibly to bankrupt

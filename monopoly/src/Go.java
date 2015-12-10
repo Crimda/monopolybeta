@@ -14,7 +14,11 @@ public class Go extends Space
     {
 		super(name);
     }
-	
+
+	@Override
+	public void setBuyable(boolean value)
+	{} // Disabled
+
 	@Override
 	public void setOwnerID(int id)
 	{} // Disabled

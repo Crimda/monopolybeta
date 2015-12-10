@@ -5,14 +5,14 @@
  */
 public class Property extends Space
 {
-    int price; 
     
-    
-    public Property(String name, int price)
+    public Property(String name, int price, int rent)
     {
         super(name);
         //super(color); // for later
         this.price = price;
+        this.rent = rent;
+        this.buyable = true;
     }
         
     public int getPrice()
@@ -20,6 +20,12 @@ public class Property extends Space
         return price;
     }
     
+	@Override
+	public void setBuyable(boolean value)
+	{
+		this.buyable = value;
+	}
+
 	@Override
 	public void setHouses(int houses)
 	{

@@ -10,12 +10,19 @@ public class Utility extends Space
     {
         super(name);
         this.price = 150;
+        this.buyable = true;
     }
         
     public int getPrice()
     {
         return price;
     }
+
+	@Override
+	public void setBuyable(boolean value)
+	{
+		this.buyable = value;
+	}
 
 	@Override
 	public void setOwnerID(int id)

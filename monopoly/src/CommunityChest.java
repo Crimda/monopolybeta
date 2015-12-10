@@ -16,6 +16,10 @@ public class CommunityChest extends Space
     }
 
 	@Override
+	public void setBuyable(boolean value)
+	{} // Disabled
+
+	@Override
 	public void setOwnerID(int id)
 	{} // Disabled
 

@@ -8,7 +8,7 @@ public class UI
 	private static String id2text(int id)
 	{
 		if (id == -1) return " ";
-		else return ""+id;
+		else return ""+(id+1);
 	}
 
 	public static void drawMap(GameState gs)
