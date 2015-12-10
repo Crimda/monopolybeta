@@ -73,6 +73,27 @@ public class GameManager
 		this.scnr.nextLine();
 	}
 
+	private int chooseProperty()
+	{// Get a valid property index for the management screen
+		while (true)
+		{
+			UI.clearScreen();
+			for(int i = 0; i < 40; i++)
+			{
+				if (this.gs.properties[i].getOwnerID() == this.gs.turn)
+					System.out.printf("%d  -  %s\n", i, this.gs.properties[i].getName());
+			}
+			System.out.print("\n");
+			int choice = this.getChoice("Please choose the property you wish to modify.", 1, 40);
+
+			choice -= 1; // Decrement for valid index
+			if (this.gs.properties[choice].getOwnerID() == this.gs.turn)
+			{
+				return choice;
+			}
+		}
+	}
+
 	public void mainLoop()
 	{
 		while (!this.gameOver)
@@ -338,9 +359,11 @@ public class GameManager
 					int choice = this.getChoice("1 - Mortgage a Property\n2 - Upgrade a property\n3 - Declare Bankruptcy\n4 - Go Back\n\t> ", 1, 4);
 					if (choice == 1)
 					{// Handle generating a list of properties to mortgage
+						int propertyChoice = this.chooseProperty();
 					}
 					if (choice == 2)
 					{// Handle generated a list of properties to upgrade
+						int propertyChoice = this.chooseProperty();
 					}
 					if (choice == 3)
 					{// Handle declaring bankruptcy
