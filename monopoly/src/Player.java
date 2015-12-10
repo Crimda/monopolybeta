@@ -23,19 +23,25 @@ public class Player
     int numUtilities = 0;
 
 	// This is basically a player-owned list of properties
-	List<Integer> ownedProperties = new ArrayList<Integer>();
+//	List<Integer> ownedProperties = new ArrayList<Integer>();
 
     public Player (int playerId, String name)
     {
         this.playerID = playerId; 
         this.name = name;
     }
-    
+ /*   
+	public Integer[] getOwnedProperties()
+	{
+		Integer[] retval = this.ownedProperties.toArray(new Integer[this.ownedProperties.size()]);
+		return retval;
+	}
+*/
 	public boolean buyProperty(int property, int value)
 	{
 		if (this.money.getMoney() > value)
 		{
-			this.ownedProperties.add(property);
+//			this.ownedProperties.add(property);
 			this.money.subtractMoney(value);
 			return true;
 		}
@@ -138,7 +144,7 @@ public class Player
 		this.escapeAttempts += 1;
 	}
 
-    public void setBankrupt(boolean bankrupt) 
+    public void setBankrupt() 
     { // Set a player forcibly to bankrupt
 		this.money.setMoney(0);
     }

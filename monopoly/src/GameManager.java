@@ -296,9 +296,15 @@ public class GameManager
 					}
 					if (choice == 2)
 					{// Handle declaring bankruptcy
+
+						// Remove all properties owned by the player
+						for (int i = 0; i < 40; i++)
+						{
+							if (this.gs.properties[i].getOwnerID() == this.gs.turn)
+								this.gs.properties[i].setOwnerID(-1);
+						}
 						this.numAlivePlayers -= 1;
 						this.gs.players[this.gs.turn].setBankrupt();
-						// TODO: Reset all property to un-owned
 					}
 					if (choice == 3)
 					{// Bake a cake I mean go back. Yeah. That.
