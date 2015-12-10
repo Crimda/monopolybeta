@@ -80,6 +80,12 @@ public class GameManager
 			if (this.gs.players[this.gs.turn].isBankrupt())
 				continue;
 
+			if (this.numAlivePlayers == 1)
+			{
+				this.gameOver = true;
+				break;
+			}
+
 			while (this.turnState != -1)
 			{ // While not end of turn, do
 				if (this.turnState == 0)
@@ -321,5 +327,8 @@ public class GameManager
 			this.numDoubles = 0;
 			if (this.firstTurn) this.firstTurn = false;
 		}
+		UI.clearScreen();
+		System.out.printf("%s Wins!\n", this.gs.players[this.gs.turn-1].getName());
+		Input.getString(this.scnr, "Press enter to exit!");
 	}
 }
