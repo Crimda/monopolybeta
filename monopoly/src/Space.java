@@ -13,12 +13,25 @@ public abstract class Space
     int price = 0;
     int rent = 0;
     int taxRate = 0;
+    int houseCost = 0;
+    int hotelCost = 0;
 
     boolean buyable = false;
+    boolean canUpgrade = false;
 
     int ownerID = -1;
     
 	public abstract void setOwnerID(int id);
+
+	public int getHouseCost()
+	{
+		return this.houseCost;
+	}
+
+	public int getHotelCost()
+	{
+		return this.hotelCost;
+	}
 
 	public int getOwnerID()
 	{
@@ -33,6 +46,11 @@ public abstract class Space
 	public boolean getBuyable()
 	{
 		return this.buyable;
+	}
+
+	public boolean getCanUpgrade()
+	{
+		return this.canUpgrade;
 	}
 
 	public abstract void setBuyable(boolean value);

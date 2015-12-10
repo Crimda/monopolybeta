@@ -75,6 +75,19 @@ public class GameManager
 
 	private int chooseProperty()
 	{// Get a valid property index for the management screen
+		// Test if player owns any property and return -1 if not
+		boolean valid = false;
+		for (int i = 0; i < 40; i++)
+		{
+			if (this.gs.properties[i].getOwnerID() == this.gs.turn)
+			{
+				valid = true;
+				break;
+			}
+		}
+
+		if (!valid) return -1;
+
 		while (true)
 		{
 			UI.clearScreen();
@@ -86,7 +99,6 @@ public class GameManager
 			System.out.print("\n");
 			int choice = this.getChoice("Please choose the property you wish to modify.", 1, 40);
 
-			choice -= 1; // Decrement for valid index
 			if (this.gs.properties[choice].getOwnerID() == this.gs.turn)
 			{
 				return choice;
@@ -360,10 +372,55 @@ public class GameManager
 					if (choice == 1)
 					{// Handle generating a list of properties to mortgage
 						int propertyChoice = this.chooseProperty();
+						if (propertyChoice == -1)
+						{
+							System.out.println("You do not own any properties!");
+							this.prompt();
+						}
 					}
 					if (choice == 2)
 					{// Handle generated a list of properties to upgrade
-						int propertyChoice = this.chooseProperty();
+						int propertyChoice = 0;
+						while (true)
+						{
+							propertyChoice = this.chooseProperty();
+							if (propertyChoice == -1)
+							{
+								System.out.println("You do not own any properties!");
+								this.prompt();
+								break;
+							}
+							if (this.gs.properties[propertyChoice].getCanUpgrade())
+							{
+								break;
+							}
+						}
+
+						this.redraw();
+						if (this.gs.properties[propertyChoice].getHotel())
+						{
+							System.out.println("You cannot upgrade this property any further!");
+							continue;
+						} else
+						if (this.gs.properties[propertyChoice].getHouses() == 4)
+						{// Handle hotel
+							System.out.println("This property has 4 houses. Would you like to upgrade to a hotel?");
+							int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
+							if (finalChoice == 1)
+							{// Deduct money and upgrade property with hotel
+								this.gs.players[this.gs.turn].takeMoney(this.gs.properties[propertyChoice].getHotelCost());
+								this.gs.properties[propertyChoice].setHotel(true);
+							}
+						}
+						else
+							System.out.println("This property presently has " + this.gs.properties[propertyChoice].getHouses() + "houses. Would you like to upgrade it?");
+
+						int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
+						if (finalChoice == 1)
+						{// Deduct money and upgrade property with house
+							this.gs.players[this.gs.turn].takeMoney(this.gs.properties[propertyChoice].getHouseCost());
+							this.gs.properties[propertyChoice].setHouses(this.gs.properties[propertyChoice].getHouses() + 1);
+						}
 					}
 					if (choice == 3)
 					{// Handle declaring bankruptcy
