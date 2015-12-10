@@ -517,7 +517,7 @@ public class GameManager
 							}
 
 							System.out.println("You will get " + this.gs.properties[propertyChoice].getMortgageValue() + ", are you sure?");
-							int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
+							int finalChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
 							if (finalChoice == 1)
 							{
 								this.gs.properties[propertyChoice].setMortgage(true);
@@ -544,7 +544,7 @@ public class GameManager
 							}
 
 							System.out.println("You must pay " + (this.gs.properties[propertyChoice].getMortgageValue() / 0.1) + ", are you sure?");
-							int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
+							int finalChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
 							if (finalChoice == 1)
 							{
 								if (this.gs.players[this.gs.turn].buyProperty((int) Math.round(this.gs.properties[propertyChoice].getMortgageValue() / 0.1)))
