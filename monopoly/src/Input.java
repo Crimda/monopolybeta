@@ -12,8 +12,7 @@ public class Input
         sc.nextLine();  // discard any other data entered on the line
         return s;
     }
-
-   public static int getInt(Scanner sc, String prompt)
+ public static int getInt(Scanner sc, String prompt)
     {
         boolean isValid = false;
         int i = 0;
@@ -34,4 +33,3 @@ public class Input
         return i;
     }    
 }
-
