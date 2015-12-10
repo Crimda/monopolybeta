@@ -232,7 +232,7 @@ public class UI
 		////////////////////////////////
 		System.out.printf("|%s   M180    |                                                                                                                                        |%s   M300    |\n",
 				id2text(gs.properties[18].getOwnerID()),
-				id2text(gs.properties[33].getOwnerID()));
+				id2text(gs.properties[32].getOwnerID()));
 		System.out.print("+============+                                                                                                                                        +============+\n");
 		System.out.println("");
 		System.out.print("+============+                                                                                                                                        +============+\n");

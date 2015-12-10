@@ -12,6 +12,7 @@ public class GameManager
 	Scanner scnr;
 
 	int turnState = 0;
+	int numAlivePlayers;
 
 	// Per player tracking values
 	int numDoubles = 0;
@@ -24,6 +25,7 @@ public class GameManager
 	{
 		this.gs = new GameState(2);
 		this.scnr = new Scanner(System.in);
+		this.numAlivePlayers = this.gs.players.length;
 	}
 
 	private int getChoice(String prompt, int min, int max)
@@ -74,6 +76,9 @@ public class GameManager
 			if (!this.firstTurn) this.gs.turn += 1;
 			if (this.gs.turn > this.gs.players.length - 1)
 				this.gs.turn = 0;
+
+			if (this.gs.players[this.gs.turn].isBankrupt())
+				continue;
 
 			while (this.turnState != -1)
 			{ // While not end of turn, do
@@ -291,6 +296,9 @@ public class GameManager
 					}
 					if (choice == 2)
 					{// Handle declaring bankruptcy
+						this.numAlivePlayers -= 1;
+						this.gs.players[this.gs.turn].setBankrupt();
+						// TODO: Reset all property to un-owned
 					}
 					if (choice == 3)
 					{// Bake a cake I mean go back. Yeah. That.
