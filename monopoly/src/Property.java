@@ -6,7 +6,7 @@
 public class Property extends Space
 {
     
-    public Property(String name, int price, int rent, int houseCost, int hotelCost)
+    public Property(String name, int price, int rent, int houseCost, int hotelCost, int mortgageValue)
     {
         super(name);
         //super(color); // for later
@@ -14,6 +14,7 @@ public class Property extends Space
         this.rent = rent;
         this.houseCost = houseCost;
         this.hotelCost = hotelCost;
+        this.mortgageValue = mortgageValue;
         this.buyable = true;
         this.canUpgrade = true;
     }
@@ -22,6 +23,7 @@ public class Property extends Space
     {
         return price;
     }
+
     
 	@Override
 	public void setBuyable(boolean value)
@@ -56,7 +58,7 @@ public class Property extends Space
         @Override
 	public void setMortgage(boolean yesno)
 	{
-		this.hotel = yesno;
+		this.mortgage = yesno;
 	}
    
     @Override 

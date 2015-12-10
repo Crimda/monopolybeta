@@ -106,6 +106,42 @@ public class GameManager
 		}
 	}
 
+	private int chooseMortgagedProperty()
+	{// Get a valid property index for the management screen
+		// Test if player owns any property and return -1 if not
+		boolean valid = false;
+		for (int i = 0; i < 40; i++)
+		{
+			if (this.gs.properties[i].getOwnerID() == this.gs.turn)
+			{
+				valid = true;
+				break;
+			}
+		}
+
+		if (!valid) return -1;
+
+		while (true)
+		{
+			UI.clearScreen();
+			for(int i = 0; i < 40; i++)
+			{
+				if (this.gs.properties[i].getOwnerID() == this.gs.turn)
+					if (this.gs.properties[i].getMortgage())
+						System.out.printf("%d  -  %s\n", i, this.gs.properties[i].getName());
+			}
+			System.out.print("\n");
+			int choice = this.getChoice("Please choose the property you wish to modify.", 1, 40);
+
+			if (this.gs.properties[choice].getOwnerID() == this.gs.turn)
+			{
+				if (this.gs.properties[choice].getMortgage())
+					return choice;
+			}
+		}
+	}
+
+
 	public void mainLoop()
 	{
 		while (!this.gameOver)
@@ -260,7 +296,7 @@ public class GameManager
 
 					if (ownerID != -1 && ownerID != this.gs.players[this.gs.turn].getID())
 					{ // Landed on another player's property. Pay rent if needed
-						if (!this.paidRentThisTurn)
+						if (!this.paidRentThisTurn && !this.gs.properties[ppos].getMortgage())
 						{
 							System.out.println("Paying due of " + this.gs.properties[ppos].getRent() + " to " + this.gs.players[ownerID].getName());
 							this.gs.players[this.gs.turn].takeMoney(this.gs.properties[ppos].getRent());
@@ -303,7 +339,7 @@ public class GameManager
 								this.turnState = 1;
 							if (choice == 2)
 							{ // Handle buying the property
-								if (this.gs.players[this.gs.turn].buyProperty(ppos, this.gs.properties[ppos].getPrice()))
+								if (this.gs.players[this.gs.turn].buyProperty(this.gs.properties[ppos].getPrice()))
 								{
 									this.gs.properties[ppos].setOwnerID(this.gs.turn);
 									this.gs.properties[ppos].setBuyable(false);
@@ -336,7 +372,7 @@ public class GameManager
 							int choice = this.getChoice("1 - Buy property\n2 - Manage Properties\n3 - End Turn\n\t> ", 1, 3);
 							if (choice == 1)
 							{
-								if (this.gs.players[this.gs.turn].buyProperty(ppos, this.gs.properties[ppos].getPrice()))
+								if (this.gs.players[this.gs.turn].buyProperty(this.gs.properties[ppos].getPrice()))
 								{
 									this.gs.properties[ppos].setOwnerID(this.gs.turn);
 									this.gs.properties[ppos].setBuyable(false);
@@ -368,59 +404,114 @@ public class GameManager
 				{// if 10: go back to 0 on end, if 11: go back to 2 on end
 					this.redraw();
 					System.out.println("What do you want to do?");
-					int choice = this.getChoice("1 - Mortgage a Property\n2 - Upgrade a property\n3 - Declare Bankruptcy\n4 - Go Back\n\t> ", 1, 4);
+					int choice = this.getChoice("1 - Mortgage/Buy back a Property\n2 - Up/Down-grade a property\n3 - Declare Bankruptcy\n4 - Go Back\n\t> ", 1, 4);
 					if (choice == 1)
 					{// Handle generating a list of properties to mortgage
-						int propertyChoice = this.chooseProperty();
-						if (propertyChoice == -1)
+						System.out.println("Which would you like to do?");
+						int subChoice = this.getChoice("1 - Mortgage\n2 - Buy back\n3 - Cancel", 1, 3);
+						if (subChoice == 1)
 						{
-							System.out.println("You do not own any properties!");
-							this.prompt();
-						}
-					}
-					if (choice == 2)
-					{// Handle generated a list of properties to upgrade
-						int propertyChoice = 0;
-						while (true)
-						{
-							propertyChoice = this.chooseProperty();
+							int propertyChoice = this.chooseProperty();
 							if (propertyChoice == -1)
 							{
 								System.out.println("You do not own any properties!");
 								this.prompt();
-								break;
 							}
-							if (this.gs.properties[propertyChoice].getCanUpgrade())
-							{
-								break;
-							}
-						}
 
-						this.redraw();
-						if (this.gs.properties[propertyChoice].getHotel())
-						{
-							System.out.println("You cannot upgrade this property any further!");
-							continue;
-						} else
-						if (this.gs.properties[propertyChoice].getHouses() == 4)
-						{// Handle hotel
-							System.out.println("This property has 4 houses. Would you like to upgrade to a hotel?");
+							if (this.gs.properties[propertyChoice].getHouses() > 0 || this.gs.properties[propertyChoice].getHotel())
+							{
+								System.out.println("You must sell all property upgrades before you can mortgage!");
+								this.prompt();
+							}
+
+							System.out.println("You will get " + this.gs.properties[propertyChoice].getMortgage() + ", are you sure?");
 							int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
 							if (finalChoice == 1)
-							{// Deduct money and upgrade property with hotel
-								this.gs.players[this.gs.turn].takeMoney(this.gs.properties[propertyChoice].getHotelCost());
-								this.gs.properties[propertyChoice].setHotel(true);
+							{
+								this.gs.properties[propertyChoice].setMortgage(true);
+								this.gs.players[this.gs.turn].giveMoney(this.gs.properties[propertyChoice].getMortgageValue());
+							}
+							if (finalChoice == 2)
+								continue;
+						}
+						if (subChoice == 2)
+						{
+							int propertyChoice = chooseMortgagedProperty();
+							System.out.println("You must pay " + (this.gs.properties[propertyChoice].getMortgageValue() / 0.1) + ", are you sure?");
+							int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
+							if (finalChoice == 1)
+							{
+								if (this.gs.players[this.gs.turn].buyProperty((int) Math.round(this.gs.properties[propertyChoice].getMortgageValue() / 0.1)))
+								{
+									this.gs.properties[propertyChoice].setMortgage(false);
+									System.out.println("You have bought back " + this.gs.properties[propertyChoice].getName() + "!");
+									this.prompt();
+								}
+								else
+								{
+									System.out.println("You cannot afford to buy back " + this.gs.properties[propertyChoice].getName() + "!");
+									this.prompt();
+								}
+							}
+							if (finalChoice == 2)
+								continue;
+						}
+						if (subChoice == 3)
+							continue;
+					}
+					if (choice == 2)
+					{// Handle generated a list of properties to upgrade
+						System.out.println("Which would you like to do?");
+						int subChoice = this.getChoice("1 - Upgrade\n2 - Downgrade\n3 - Cancel", 1, 3);
+						if (subChoice == 1)
+						{
+							int propertyChoice = 0;
+							while (true)
+							{
+								propertyChoice = this.chooseProperty();
+								if (propertyChoice == -1)
+								{
+									System.out.println("You do not own any properties!");
+									this.prompt();
+									break;
+								}
+								if (this.gs.properties[propertyChoice].getCanUpgrade())
+								{
+									break;
+								}
+							}
+
+							this.redraw();
+							if (this.gs.properties[propertyChoice].getHotel())
+							{
+								System.out.println("You cannot upgrade this property any further!");
+								continue;
+							} else
+							if (this.gs.properties[propertyChoice].getHouses() == 4)
+							{// Handle hotel
+								System.out.println("This property has 4 houses. Would you like to upgrade to a hotel?");
+								int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
+								if (finalChoice == 1)
+								{// Deduct money and upgrade property with hotel
+									this.gs.players[this.gs.turn].takeMoney(this.gs.properties[propertyChoice].getHotelCost());
+									this.gs.properties[propertyChoice].setHotel(true);
+								}
+							}
+							else
+								System.out.println("This property presently has " + this.gs.properties[propertyChoice].getHouses() + "houses. Would you like to upgrade it?");
+
+							int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
+							if (finalChoice == 1)
+							{// Deduct money and upgrade property with house
+								this.gs.players[this.gs.turn].takeMoney(this.gs.properties[propertyChoice].getHouseCost());
+								this.gs.properties[propertyChoice].setHouses(this.gs.properties[propertyChoice].getHouses() + 1);
 							}
 						}
-						else
-							System.out.println("This property presently has " + this.gs.properties[propertyChoice].getHouses() + "houses. Would you like to upgrade it?");
-
-						int finalChoice = this.getChoice("1 - Yes\n2 - No", 1, 2);
-						if (finalChoice == 1)
-						{// Deduct money and upgrade property with house
-							this.gs.players[this.gs.turn].takeMoney(this.gs.properties[propertyChoice].getHouseCost());
-							this.gs.properties[propertyChoice].setHouses(this.gs.properties[propertyChoice].getHouses() + 1);
+						if (choice == 2)
+						{// TODO: Implement downgrade submenu
 						}
+						if (choice == 3)
+							continue;
 					}
 					if (choice == 3)
 					{// Handle declaring bankruptcy

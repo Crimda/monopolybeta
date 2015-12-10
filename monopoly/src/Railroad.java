@@ -6,11 +6,12 @@ public class Railroad extends Space
 {
     int price; 
     
-    public Railroad(String name)
+    public Railroad(String name, int mortgageValue)
     {
         super(name);
         this.price = 200;
         this.buyable = true;
+        this.mortgageValue = mortgageValue;
     }
         
     public int getPrice()
@@ -38,9 +39,11 @@ public class Railroad extends Space
 	public void setHotel(boolean yesno)
 	{} // Disabled
         
-        @Override
+    @Override
 	public void setMortgage(boolean yesno)
-	{} // Disabled
+	{
+		this.mortgage = yesno;
+	}
 
     @Override 
     public void action(Player player, Board board)

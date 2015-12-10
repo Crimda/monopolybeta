@@ -6,11 +6,12 @@ public class Utility extends Space
 {
     int price; 
     
-    public Utility(String name)
+    public Utility(String name, int mortgageValue)
     {
         super(name);
         this.price = 150;
         this.buyable = true;
+        this.mortgageValue = mortgageValue;
     }
         
     public int getPrice()
@@ -40,8 +41,10 @@ public class Utility extends Space
         
     @Override
     public void setMortgage(boolean yesno)
-    {} // Disabled
-    
+    {
+		this.mortgage = yesno;
+	}    
+
     @Override 
     public void action(Player player, Board board)
     {   

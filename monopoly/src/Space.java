@@ -15,6 +15,7 @@ public abstract class Space
     int taxRate = 0;
     int houseCost = 0;
     int hotelCost = 0;
+    int mortgageValue = 0;
 
     boolean buyable = false;
     boolean canUpgrade = false;
@@ -22,6 +23,11 @@ public abstract class Space
     int ownerID = -1;
     
 	public abstract void setOwnerID(int id);
+
+	public int getMortgageValue()
+	{
+		return this.mortgageValue;
+	}
 
 	public int getHouseCost()
 	{

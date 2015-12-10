@@ -22,6 +22,8 @@ public class Player
     int numRailroads = 0;
     int numUtilities = 0;
 
+    int numMortgages = 0;
+
 	// This is basically a player-owned list of properties
 //	List<Integer> ownedProperties = new ArrayList<Integer>();
 
@@ -37,7 +39,17 @@ public class Player
 		return retval;
 	}
 */
-	public boolean buyProperty(int property, int value)
+ 	public int getNumMortgages()
+ 	{
+ 		return this.numMortgages;
+ 	}
+
+ 	public void setNumMortgages(int value)
+ 	{
+ 		this.numMortgages = value;
+ 	}
+
+	public boolean buyProperty(int value)
 	{
 		if (this.money.getMoney() > value)
 		{
