@@ -3,16 +3,21 @@
  * @author Brad
  */
 
+import java.util.Scanner;
+
 public class GameState
 {
 	public int playerCount;
 	public Player[] players;
 	public Space[] properties;
 
+	public Scanner scnr;
+
 	int turn = 0;
 
 	public GameState(int playerCount)
 	{
+		this.scnr = new Scanner(System.in);
 		this.playerCount = playerCount;
 		this.players = new Player[playerCount];
 		for (int i = 0; i < playerCount; i++)

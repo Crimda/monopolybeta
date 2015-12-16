@@ -3,9 +3,9 @@
  * @author Brad
  */
 
+
 public class UI
 {
-
 	private static String id2text(int id)
 	{
 		if (id == -1) return " ";
@@ -382,14 +382,200 @@ public class UI
 		drawRow(gs, row8_indexes, row8_namemap, row8_typemap);
 		drawRow(gs, row9_indexes, row9_namemap, row9_typemap);
 		drawRow(gs, row10_indexes, row10_namemap, row10_typemap);
-/*
-		{ // Bottom row
-			int[] indexes = {10, 9, 8, 7, 8, 7, 6, 5, 4, 3, 2, 1, 0};
-			int[] typemap = {7, 0, 0, 1, 0, 3, 5, 0, 2, 0, 6};
-			drawRow(gs, indexes, typemap);
-		}
-*/
 	}
+
+	public static int getInt(GameState gs, String prompt)
+    {
+        boolean isValid = false;
+        int i = 0;
+        while (isValid == false)
+        {
+            System.out.print(prompt);
+            if (gs.scnr.hasNextInt())
+            {
+                i = gs.scnr.nextInt();
+                isValid = true;
+            }
+            else
+            {
+                System.out.println("Error! Invalid integer value. Try again.");
+            }
+            gs.scnr.nextLine();  // discard any other data entered on the line
+        }
+        return i;
+    }    
+
+	public static int getChoice(GameState gs, String prompt, int min, int max)
+	{
+		int choice = 0;
+		boolean error = false;
+		boolean first = true;
+		while (error || first)
+		{
+			if (error)
+			{
+				UI.clearScreen();
+				UI.drawMap(gs);
+				System.out.println("Please enter a number between " + (min-1) + " and " + (max+1));
+			}
+			choice = getInt(gs, prompt);
+			if (choice < min && choice > max)
+				error = true;
+			else
+				error = false;
+			first = false;
+		}
+		return choice;
+	}
+
+	public static void showStatus(GameState gs)
+	{
+		System.out.print("Banks: ");
+		for (int i = 0; i < gs.players.length; i++)
+			System.out.printf("%s: %d    ", gs.players[i].getName(), gs.players[i].getTotalMoney());
+
+		System.out.print("Current turn: " + gs.players[gs.turn].getName());
+		System.out.print("\n");
+	}
+
+	public static void redraw(GameState gs)
+	{
+		UI.clearScreen();
+		UI.drawMap(gs);
+		UI.showStatus(gs);
+	}
+
+	public static void prompt(GameState gs)
+	{
+		System.out.println("=Press enter to continue=");
+		gs.scnr.nextLine();
+	}
+
+	public static void prompt(GameState gs, String msg)
+	{
+		System.out.println(msg);
+		gs.scnr.nextLine();
+	}
+
+	public static int chooseProperty(GameState gs)
+	{// Get a valid property index for the management screen
+		// Test if player owns any property and return -1 if not
+		boolean valid = false;
+		for (int i = 0; i < 40; i++)
+		{
+			if (gs.properties[i].getOwnerID() == gs.turn)
+			{
+				valid = true;
+				break;
+			}
+		}
+
+		if (!valid) return -1;
+
+		while (true)
+		{
+			clearScreen();
+			for(int i = 0; i < 40; i++)
+			{
+				if (gs.properties[i].getOwnerID() == gs.turn)
+					System.out.printf("%d  -  %s\n", i, gs.properties[i].getName());
+			}
+			System.out.print("\n");
+			int choice = getChoice(gs, "Please choose the property you wish to modify.", 1, 40);
+
+			if (gs.properties[choice].getOwnerID() == gs.turn)
+			{
+				return choice;
+			}
+		}
+	}
+
+	public static int chooseMortgagedProperty(GameState gs)
+	{// Get a valid property index for the management screen
+		// Test if player owns any property and return -1 if not
+		boolean valid = false;
+		for (int i = 0; i < 40; i++)
+		{
+			if (gs.properties[i].getOwnerID() == gs.turn)
+			{
+				valid = true;
+				break;
+			}
+		}
+
+		if (!valid) return -1;
+
+		// Ensure that at least one property can be unmortgaged
+		valid = false;
+		for (int i = 0; i < 40; i++)
+		{
+			if (gs.properties[i].getMortgage())
+			{
+				valid = true;
+				break;
+			}
+		}
+
+		if (!valid) return -2;
+
+		while (true)
+		{
+			clearScreen();
+			for(int i = 0; i < 40; i++)
+			{
+				if (gs.properties[i].getOwnerID() == gs.turn)
+					if (gs.properties[i].getMortgage())
+						System.out.printf("%d  -  %s\n", i, gs.properties[i].getName());
+			}
+			System.out.print("\n");
+			int choice = getChoice(gs, "Please choose the property you wish to modify.\n\t> ", 1, 40);
+
+			if (gs.properties[choice].getOwnerID() == gs.turn)
+			{
+				if (gs.properties[choice].getMortgage())
+					return choice;
+			}
+		}
+	}
+
+	public static int chooseUpgradableProperty(GameState gs)
+	{// Get a valid property index for the management screen
+		// Test if player owns any property and return -1 if not
+		boolean valid = false;
+		for (int i = 0; i < 40; i++)
+		{
+			if (gs.properties[i].getOwnerID() == gs.turn)
+			{
+				if (gs.properties[i].getCanUpgrade())
+				{
+					valid = true;
+					break;
+				}
+			}
+		}
+
+		if (!valid) return -1;
+
+		while (true)
+		{
+			clearScreen();
+			for(int i = 0; i < 40; i++)
+			{
+				if (gs.properties[i].getOwnerID() == gs.turn)
+					if (gs.properties[i].getCanUpgrade())
+						System.out.printf("%d  -  %s\n", i, gs.properties[i].getName());
+			}
+			System.out.print("\n");
+			int choice = getChoice(gs, "Please choose the property you wish to modify.", 1, 40);
+
+			if (gs.properties[choice].getOwnerID() == gs.turn)
+			{
+				if (gs.properties[choice].getCanUpgrade())
+					return choice;
+			}
+		}
+	}
+
 /*
 	public static void drawMap(GameState gs)
 	{ // Currently a placeholder; TODO: Implement map logic

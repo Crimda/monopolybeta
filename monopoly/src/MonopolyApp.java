@@ -12,6 +12,8 @@ public class MonopolyApp {
      */
     public static void main(String[] args)
     {
+//	   	System.out.println("How many players?");
+//    	int choice = 
 		GameManager gm = new GameManager();
 		gm.mainLoop();
 //		GameState gs = new GameState(6);

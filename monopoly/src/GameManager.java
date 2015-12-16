@@ -3,12 +3,11 @@
  * @author Brad
  */
 
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class GameManager
 {
 	GameState gs;
-	Scanner scnr;
 
 	int turnState = 0;
 	int numAlivePlayers;
@@ -23,181 +22,9 @@ public class GameManager
 	public GameManager()
 	{
 		this.gs = new GameState(2);
-		this.scnr = new Scanner(System.in);
 		this.numAlivePlayers = this.gs.players.length;
 	}
-
-	private int getChoice(String prompt, int min, int max)
-	{
-		int choice = 0;
-		boolean error = false;
-		boolean first = true;
-		while (error || first)
-		{
-			if (error)
-			{
-				UI.clearScreen();
-				UI.drawMap(this.gs);
-				System.out.println("Please enter a number between " + (min-1) + " and " + (max+1));
-			}
-			choice = Input.getInt(this.scnr, prompt);
-			if (choice < min && choice > max)
-				error = true;
-			else
-				error = false;
-			first = false;
-		}
-		return choice;
-	}
-
-	private void showStatus()
-	{
-		System.out.print("Banks: ");
-		for (int i = 0; i < this.gs.players.length; i++)
-			System.out.printf("%s: %d    ", this.gs.players[i].getName(), this.gs.players[i].getTotalMoney());
-
-		System.out.print("Current turn: " + this.gs.players[this.gs.turn].getName());
-		System.out.print("\n");
-	}
-
-	private void redraw()
-	{
-		UI.clearScreen();
-		UI.drawMap(this.gs);
-		this.showStatus();
-	}
-
-	private void prompt()
-	{
-		System.out.println("=Press enter to continue=");
-		this.scnr.nextLine();
-	}
-
-	private void prompt(String msg)
-	{
-		System.out.println(msg);
-		this.scnr.nextLine();
-	}
-
-	private int chooseProperty()
-	{// Get a valid property index for the management screen
-		// Test if player owns any property and return -1 if not
-		boolean valid = false;
-		for (int i = 0; i < 40; i++)
-		{
-			if (this.gs.properties[i].getOwnerID() == this.gs.turn)
-			{
-				valid = true;
-				break;
-			}
-		}
-
-		if (!valid) return -1;
-
-		while (true)
-		{
-			UI.clearScreen();
-			for(int i = 0; i < 40; i++)
-			{
-				if (this.gs.properties[i].getOwnerID() == this.gs.turn)
-					System.out.printf("%d  -  %s\n", i, this.gs.properties[i].getName());
-			}
-			System.out.print("\n");
-			int choice = this.getChoice("Please choose the property you wish to modify.", 1, 40);
-
-			if (this.gs.properties[choice].getOwnerID() == this.gs.turn)
-			{
-				return choice;
-			}
-		}
-	}
-
-	private int chooseMortgagedProperty()
-	{// Get a valid property index for the management screen
-		// Test if player owns any property and return -1 if not
-		boolean valid = false;
-		for (int i = 0; i < 40; i++)
-		{
-			if (this.gs.properties[i].getOwnerID() == this.gs.turn)
-			{
-				valid = true;
-				break;
-			}
-		}
-
-		if (!valid) return -1;
-
-		// Ensure that at least one property can be unmortgaged
-		valid = false;
-		for (int i = 0; i < 40; i++)
-		{
-			if (this.gs.properties[i].getMortgage())
-			{
-				valid = true;
-				break;
-			}
-		}
-
-		if (!valid) return -2;
-
-		while (true)
-		{
-			UI.clearScreen();
-			for(int i = 0; i < 40; i++)
-			{
-				if (this.gs.properties[i].getOwnerID() == this.gs.turn)
-					if (this.gs.properties[i].getMortgage())
-						System.out.printf("%d  -  %s\n", i, this.gs.properties[i].getName());
-			}
-			System.out.print("\n");
-			int choice = this.getChoice("Please choose the property you wish to modify.\n\t> ", 1, 40);
-
-			if (this.gs.properties[choice].getOwnerID() == this.gs.turn)
-			{
-				if (this.gs.properties[choice].getMortgage())
-					return choice;
-			}
-		}
-	}
-
-	private int chooseUpgradableProperty()
-	{// Get a valid property index for the management screen
-		// Test if player owns any property and return -1 if not
-		boolean valid = false;
-		for (int i = 0; i < 40; i++)
-		{
-			if (this.gs.properties[i].getOwnerID() == this.gs.turn)
-			{
-				if (this.gs.properties[i].getCanUpgrade())
-				{
-					valid = true;
-					break;
-				}
-			}
-		}
-
-		if (!valid) return -1;
-
-		while (true)
-		{
-			UI.clearScreen();
-			for(int i = 0; i < 40; i++)
-			{
-				if (this.gs.properties[i].getOwnerID() == this.gs.turn)
-					if (this.gs.properties[i].getCanUpgrade())
-						System.out.printf("%d  -  %s\n", i, this.gs.properties[i].getName());
-			}
-			System.out.print("\n");
-			int choice = this.getChoice("Please choose the property you wish to modify.", 1, 40);
-
-			if (this.gs.properties[choice].getOwnerID() == this.gs.turn)
-			{
-				if (this.gs.properties[choice].getCanUpgrade())
-					return choice;
-			}
-		}
-	}
-
+	
 	public void mainLoop()
 	{
 		while (!this.gameOver)
@@ -223,12 +50,12 @@ public class GameManager
 				if (this.turnState == 0)
 				{ // Handle pre-roll state
 					// Update display (Pre-roll)
-					this.redraw();
+					UI.redraw(gs);
 
 					if (this.gs.players[this.gs.turn].isBankrupt())
 					{ // Handle player having 0 or less moneys
 						System.out.println("You are bankrupt! Sell some properties or declare bankruptcy!");
-						this.prompt();
+						UI.prompt(gs);
 						this.turnState = 10;
 					} else
 
@@ -239,7 +66,7 @@ public class GameManager
 
 						if (attempts == 0)
 						{
-							int choice = this.getChoice("1 - Roll Dice\n2 - Pay Fine($50)\n3 - Use Get-Out-Of-Jail-Free Card\n4 - Manage Properties\n\t> ", 1, 4);
+							int choice = UI.getChoice(gs, "1 - Roll Dice\n2 - Pay Fine($50)\n3 - Use Get-Out-Of-Jail-Free Card\n4 - Manage Properties\n\t> ", 1, 4);
 							if (choice == 1)
 							{
 								this.gs.players[this.gs.turn].incEscapeAttempts();
@@ -254,7 +81,7 @@ public class GameManager
 								else
 								{
 									System.out.println("You failed to escape!");
-									this.prompt();
+									UI.prompt(gs);
 									turnState = -1;
 								}
 							}
@@ -269,12 +96,12 @@ public class GameManager
 								if (!this.gs.players[this.gs.turn].getEscapeCard())
 								{
 									System.out.println("You do not have an escape card!");
-									this.prompt();
+									UI.prompt(gs);
 									continue;
 								}
 								
 								System.out.println("You have an escape card, would you like to use it?");
-								int subChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
+								int subChoice = UI.getChoice(gs, "1 - Yes\n2 - No\n\t> ", 1, 2);
 
 								if (subChoice == 1)
 								{
@@ -294,21 +121,21 @@ public class GameManager
 						{
 							if (attempts == 3)
 							{
-								int choice = this.getChoice("1 - Pay fine($50)\n2 - Manage Properties\n\t> ", 1, 2);
+								int choice = UI.getChoice(gs, "1 - Pay fine($50)\n2 - Manage Properties\n\t> ", 1, 2);
 								if (choice == 1)
 								{
 									this.gs.players[this.gs.turn].takeMoney(50);
 									this.gs.players[this.gs.turn].setInJail(false);
 									this.turnState = -1;
 									System.out.println("You pay your fine of $50.");
-									this.prompt();
+									UI.prompt(gs);
 								}
 								if (choice == 2)
 									this.turnState = 10;
 							}
 							else
 							{
-								int choice = this.getChoice("1 - Roll Dice\n2 - Manage Properties\n\t> ", 1, 2);
+								int choice = UI.getChoice(gs, "1 - Roll Dice\n2 - Manage Properties\n\t> ", 1, 2);
 								if (choice == 1)
 								{
 									this.gs.players[this.gs.turn].incEscapeAttempts();
@@ -323,7 +150,7 @@ public class GameManager
 									else
 									{
 										System.out.println("You fail to escape!");
-										this.prompt();
+										UI.prompt(gs);
 									}
 								}
 								if (choice == 2)
@@ -334,7 +161,7 @@ public class GameManager
 					else
 					{
 						System.out.println("What would you like to do?");
-						int choice = this.getChoice("1 - Roll Dice\n2 - Manage Properties\n\t> ", 1, 2);
+						int choice = UI.getChoice(gs, "1 - Roll Dice\n2 - Manage Properties\n\t> ", 1, 2);
 						
 						if (choice == 1)
 						{ // Handle player movement and doubles
@@ -365,7 +192,7 @@ public class GameManager
 
 				if (this.turnState == 2)
 				{ // Handle post-roll things, such as buying current property, paying rent, and allowing property management, and end turn
-					this.redraw();
+					UI.redraw(gs);
 
 					// Test if we landed on an owned property
 					int ppos = this.gs.players[this.gs.turn].getPos();
@@ -443,7 +270,7 @@ public class GameManager
 					{ // Send this punk to jail
 						this.gs.players[this.gs.turn].setInJail(true);
 						System.out.println("GO TO JAIL!");
-						this.prompt();
+						UI.prompt(gs);
 					} else
 
 					// Test if we landed on chance
@@ -454,25 +281,25 @@ public class GameManager
                         {
 							this.gs.players[this.gs.turn].setInJail(true);
 							System.out.println("YOU GO TO JAIL!");
-							this.prompt();   
+							UI.prompt(gs);
                         }
                         if (r == 2)
                         {
 							this.gs.players[this.gs.turn].setPos(0);
 							System.out.println("You move to GO");
-							this.prompt(); 
+							UI.prompt(gs);
                         }
                         if (r == 3)
                         {
 							this.gs.players[this.gs.turn].setPos(19);
 							System.out.println("You go to New York for vacation");
-							this.prompt();
+							UI.prompt(gs);
                         }
                         else
                         {
                             System.out.println("You found money on the ground, you get $10!");
                             this.gs.players[this.gs.turn].money.addMoney(10);
-                            this.prompt();
+                            UI.prompt(gs);
                         }
 					} else
 
@@ -484,26 +311,26 @@ public class GameManager
                         {
                             System.out.println("You won a crappy scratch-off, you get $25!");
                             this.gs.players[this.gs.turn].money.addMoney(25);
-                            this.prompt();
+                            UI.prompt(gs);
                         }
                         if (r == 2)
                         {
                             System.out.println("You won a small lottery, you get $150!");
                             this.gs.players[this.gs.turn].money.addMoney(150); 
-                            this.prompt();
+                            UI.prompt(gs);
                         }
                         if (r == 3)
                         {
                             System.out.println("A community chest is for the people, you pay your contribution of $100");
                             this.gs.players[this.gs.turn].money.subtractMoney(100); 
-                            this.prompt();
+                            UI.prompt(gs);
                         }
                         
                         if (r > 3)
                         {
                             System.out.println("You save the life of a man named Bobby Gates. He thanks you with $500");
                             this.gs.players[this.gs.turn].money.addMoney(500); 
-                            this.prompt();
+                            UI.prompt(gs);
                         }
 					}
 
@@ -512,7 +339,7 @@ public class GameManager
 					{
 						if (this.gs.properties[ppos].getBuyable())
 						{
-							int choice = this.getChoice("1 - Roll Again\n2 - Buy property\n3 - Manage Properties\n\t> ", 1, 3);
+							int choice = UI.getChoice(gs, "1 - Roll Again\n2 - Buy property\n3 - Manage Properties\n\t> ", 1, 3);
 							if (choice == 1)
 								this.turnState = 1;
 							if (choice == 2)
@@ -523,12 +350,12 @@ public class GameManager
 									this.gs.properties[ppos].setBuyable(false);
 
 									System.out.println("You bought " + this.gs.properties[ppos].getName() + "!");
-									this.prompt();
+									UI.prompt(gs);
 								}
 								else
 								{
 									System.out.println("You don't have enough money to buy " + this.gs.properties[ppos].getName());
-									this.prompt();
+									UI.prompt(gs);
 								}
 							}
 							if (choice == 3)
@@ -536,7 +363,7 @@ public class GameManager
 						}
 						else
 						{
-							int choice = this.getChoice("1 - Roll Again\n2 - Manage Properties\n\t> ", 1, 2);
+							int choice = UI.getChoice(gs, "1 - Roll Again\n2 - Manage Properties\n\t> ", 1, 2);
 							if (choice == 1)
 								this.turnState = 1;
 							if (choice == 2)
@@ -547,7 +374,7 @@ public class GameManager
 					{
 						if (this.gs.properties[ppos].getBuyable())
 						{
-							int choice = this.getChoice("1 - Buy property\n2 - Manage Properties\n3 - End Turn\n\t> ", 1, 3);
+							int choice = UI.getChoice(gs, "1 - Buy property\n2 - Manage Properties\n3 - End Turn\n\t> ", 1, 3);
 							if (choice == 1)
 							{
 								if (this.gs.players[this.gs.turn].buyProperty(this.gs.properties[ppos].getPrice()))
@@ -555,12 +382,12 @@ public class GameManager
 									this.gs.properties[ppos].setOwnerID(this.gs.turn);
 									this.gs.properties[ppos].setBuyable(false);
 									System.out.println("You bought " + this.gs.properties[ppos].getName() + "!");
-									this.prompt();
+									UI.prompt(gs);
 								}
 								else
 								{
 									System.out.println("You don't have enough money to buy " + this.gs.properties[ppos].getName());
-									this.prompt();
+									UI.prompt(gs);
 								}
 							}
 							if (choice == 2)
@@ -570,7 +397,7 @@ public class GameManager
 						}
 						else
 						{
-							int choice = this.getChoice("1 - Manage Properties\n2 - End Turn\n\t> ", 1, 2);
+							int choice = UI.getChoice(gs, "1 - Manage Properties\n2 - End Turn\n\t> ", 1, 2);
 							if (choice == 1)
 								this.turnState = 11;
 							if (choice == 2)
@@ -580,39 +407,39 @@ public class GameManager
 				} else
 				if (this.turnState == 10 || this.turnState == 11)
 				{// if 10: go back to 0 on end, if 11: go back to 2 on end
-					this.redraw();
+					UI.redraw(gs);
 					System.out.println("What do you want to do?");
-					int choice = this.getChoice("1 - Mortgage/Buy back a Property\n2 - Up/Down-grade a property\n3 - Declare Bankruptcy\n4 - Go Back\n\t> ", 1, 4);
+					int choice = UI.getChoice(gs, "1 - Mortgage/Buy back a Property\n2 - Up/Down-grade a property\n3 - Declare Bankruptcy\n4 - Go Back\n\t> ", 1, 4);
 					if (choice == 1)
 					{// Handle generating a list of properties to mortgage
 						System.out.println("Which would you like to do?");
-						int subChoice = this.getChoice("1 - Mortgage\n2 - Buy back\n3 - Cancel\n\t> ", 1, 3);
+						int subChoice = UI.getChoice(gs, "1 - Mortgage\n2 - Buy back\n3 - Cancel\n\t> ", 1, 3);
 						if (subChoice == 1)
 						{
-							int propertyChoice = this.chooseProperty();
+							int propertyChoice = UI.chooseProperty(gs);
 							if (propertyChoice == -1)
 							{
 								System.out.println("You do not own any properties!");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							}
 
 							if (this.gs.properties[propertyChoice].getHouses() > 0 || this.gs.properties[propertyChoice].getHotel())
 							{
 								System.out.println("You must sell all property upgrades before you can mortgage!");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							}
 
 							if (this.gs.properties[propertyChoice].getMortgage())
 							{
 								System.out.println("You cannot mortgage a property a second time >_>");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							}
 
 							System.out.println("You will get " + this.gs.properties[propertyChoice].getMortgageValue() + ", are you sure?");
-							int finalChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
+							int finalChoice = UI.getChoice(gs, "1 - Yes\n2 - No\n\t> ", 1, 2);
 							if (finalChoice == 1)
 							{
 								this.gs.properties[propertyChoice].setMortgage(true);
@@ -623,42 +450,42 @@ public class GameManager
 						}
 						if (subChoice == 2)
 						{
-							int propertyChoice = chooseMortgagedProperty();
+							int propertyChoice = UI.chooseMortgagedProperty(gs);
 							if (propertyChoice == -2)
 							{
 								System.out.println("You do not have any properties that can be unmortgaged!");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							}
 
 							if (propertyChoice == -1)
 							{
 								System.out.println("You do not own any properties!");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							}
 
 							if (!this.gs.properties[propertyChoice].getMortgage())
 							{
 								System.out.println("You cannot unmortgage a property that is not mortgaged >_>");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							}
 
 							System.out.println("You must pay " + (this.gs.properties[propertyChoice].getMortgageValue() + (this.gs.properties[propertyChoice].getMortgageValue() * 0.1)) + ", are you sure?");
-							int finalChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
+							int finalChoice = UI.getChoice(gs, "1 - Yes\n2 - No\n\t> ", 1, 2);
 							if (finalChoice == 1)
 							{
 								if (this.gs.players[this.gs.turn].buyProperty((int) Math.round(this.gs.properties[propertyChoice].getMortgageValue() + (this.gs.properties[propertyChoice].getMortgageValue() * 0.1))))
 								{
 									this.gs.properties[propertyChoice].setMortgage(false);
 									System.out.println("You have bought back " + this.gs.properties[propertyChoice].getName() + "!");
-									this.prompt();
+									UI.prompt(gs);
 								}
 								else
 								{
 									System.out.println("You cannot afford to buy back " + this.gs.properties[propertyChoice].getName() + "!");
-									this.prompt();
+									UI.prompt(gs);
 								}
 							}
 							if (finalChoice == 2)
@@ -670,29 +497,29 @@ public class GameManager
 					if (choice == 2)
 					{// Handle generated a list of properties to upgrade
 						System.out.println("Which would you like to do?");
-						int subChoice = this.getChoice("1 - Upgrade\n2 - Downgrade\n3 - Cancel\n\t> ", 1, 3);
+						int subChoice = UI.getChoice(gs, "1 - Upgrade\n2 - Downgrade\n3 - Cancel\n\t> ", 1, 3);
 						if (subChoice == 1)
 						{
-							int propertyChoice = this.chooseUpgradableProperty();
+							int propertyChoice = UI.chooseUpgradableProperty(gs);
 							if (propertyChoice == -1)
 							{
 								System.out.println("You do not own any properties!");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							}
 
-							this.redraw();
+							UI.redraw(gs);
 							if (this.gs.properties[propertyChoice].getHotel())
 							{
 								System.out.println("You cannot upgrade this property any further!");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							} else
 							if (this.gs.properties[propertyChoice].getHouses() == 4)
 							{// Handle hotel
 								System.out.println("This property has 4 houses. Would you like to upgrade to a hotel?");
 								System.out.println("This will cost you $" + this.gs.properties[propertyChoice].getHotelCost());
-								int finalChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
+								int finalChoice = UI.getChoice(gs, "1 - Yes\n2 - No\n\t> ", 1, 2);
 								if (finalChoice == 1)
 								{// Deduct money and upgrade property with hotel
 									this.gs.players[this.gs.turn].takeMoney(this.gs.properties[propertyChoice].getHotelCost());
@@ -705,7 +532,7 @@ public class GameManager
 								System.out.println("This property presently has " + this.gs.properties[propertyChoice].getHouses() + " houses. Would you like to upgrade it?");
 								System.out.println("This will cost you $" + this.gs.properties[propertyChoice].getHouseCost());
 
-							int finalChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
+							int finalChoice = UI.getChoice(gs, "1 - Yes\n2 - No\n\t> ", 1, 2);
 							if (finalChoice == 1)
 							{// Deduct money and upgrade property with house
 								this.gs.players[this.gs.turn].takeMoney(this.gs.properties[propertyChoice].getHouseCost());
@@ -715,26 +542,26 @@ public class GameManager
 						}
 						if (choice == 2)
 						{
-							int propertyChoice = this.chooseUpgradableProperty();
+							int propertyChoice = UI.chooseUpgradableProperty(gs);
 							if (propertyChoice == -1)
 							{
 								System.out.println("You do not own any properties!");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							}
 
-							this.redraw();
+							UI.redraw(gs);
 							if (this.gs.properties[propertyChoice].getHouses() <= 0 && !this.gs.properties[propertyChoice].getHotel())
 							{
 								System.out.println("You cannot downgrade this property any further!");
-								this.prompt();
+								UI.prompt(gs);
 								continue;
 							} else
 							if (this.gs.properties[propertyChoice].getHotel())
 							{// Handle hotel
 								System.out.println("This property has a hotel. Would you like to downgrade to 4 houses?");
 								System.out.println("You will recieve $" + Math.round(this.gs.properties[propertyChoice].getHotelCost()/2));
-								int finalChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
+								int finalChoice = UI.getChoice(gs, "1 - Yes\n2 - No\n\t> ", 1, 2);
 								if (finalChoice == 1)
 								{// Add money and downgrade to 4 houses
 									this.gs.players[this.gs.turn].giveMoney((int) Math.round(this.gs.properties[propertyChoice].getHotelCost()/2));
@@ -747,7 +574,7 @@ public class GameManager
 							{
 								System.out.println("This property presently has " + this.gs.properties[propertyChoice].getHouses() + " houses. Would you like to downgrade it?");
 								System.out.println("You will recieve $" + Math.round(this.gs.properties[propertyChoice].getHouseCost()/2));
-								int finalChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
+								int finalChoice = UI.getChoice(gs, "1 - Yes\n2 - No\n\t> ", 1, 2);
 								if (finalChoice == 1)
 								{// Add money and take a house from the property
 									this.gs.players[this.gs.turn].giveMoney((int) Math.round(this.gs.properties[propertyChoice].getHouseCost()/2));
@@ -786,6 +613,6 @@ public class GameManager
 		}
 		UI.clearScreen();
 		System.out.printf("%s Wins!\n", this.gs.players[this.gs.turn].getName());
-		this.prompt();
+		UI.prompt(gs);
 	}
 }
