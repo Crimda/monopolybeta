@@ -1,12 +1,12 @@
 Version 1 of Monopoly.  This is a simplified version of the game.  In this version, functionality must include:
 
-- Moving two players (both human controlled) around the board
+- Moving two players (both human controlled) around the board |DONE
 
-- Buying properties (including utilities and railroads) and charging rent 
+- Buying properties (including utilities and railroads) and charging rent |DONE 
 
-- Jail, Income Tax, and Luxury Tax
+- Jail, Income Tax, and Luxury Tax |DONE
 
-- Bankruptcy and property mortgaging
+- Bankruptcy and property mortgaging |DONE
 
 
 
@@ -22,7 +22,7 @@ Each completed level is worth +5 points to your project score.
 ·         Cards – Random events trigger when landing on certain spaces.  Both Chance and Community Chest have a set of events that can trigger when the cards are drawn.
 
 
-o   Level 1 – Implement both Chance and Community Chest cards.  They can be the ‘real’ cards from the game or have effects of your choosing.
+o   Level 1 – Implement both Chance and Community Chest cards.  They can be the ‘real’ cards from the game or have effects of your choosing. | DONE
 
  
 o   Level 2 – Create a new type of Card that can reside in a player inventory and be used at any point during the player turn.  Effects are of your choosing.
@@ -31,7 +31,7 @@ o   Level 2 – Create a new type of Card that can reside in a player inventory 
 ·         Houses
 
 
-o   Level 1 – Allow the player to build houses on each property they own.  Cost of houses and increases to rent are specified by the game.  At this level, any amount of houses (up to four) can be built on any owned property. 
+o   Level 1 – Allow the player to build houses on each property they own.  Cost of houses and increases to rent are specified by the game.  At this level, any amount of houses (up to four) can be built on any owned property. | DONE 
 
 
 o   Level 2 – Follow the ‘real’ Monopoly house rules.  Houses must be evenly distributed between ‘sets’ of properties. Hotels can be built after maxing out houses on all properties in a set.
@@ -86,7 +86,7 @@ o   Level 3 – Allow players to build a new type of structure on squares – �
 ·         Doubles:
 
  
-o   Level 1 – Implement the extra turn for rolling doubles and ‘three doubles in a row lands you in jail’ rules.
+o   Level 1 – Implement the extra turn for rolling doubles and ‘three doubles in a row lands you in jail’ rules. | DONE
 
  
 
