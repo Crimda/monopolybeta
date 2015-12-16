@@ -248,7 +248,9 @@ public class GameManager
 								this.turnState = -1;
 							}
 							if (choice == 3)
-							{} // TODO: Handle get out of jail free cards
+							{
+
+							} // TODO: Handle get out of jail free cards
 							if (choice == 4)
 								this.turnState = 10;
 						}
@@ -410,8 +412,8 @@ public class GameManager
 
 					// Test if we landed on chance
 					if (ppos == 7 || ppos == 22 || ppos == 36)
-					{ // TODO: Implement chance system
-                        int r = CommunityChest.getRng(); //use same random gen function
+					{
+						int r = CommunityChest.getRng(); //use same random gen function
                         if (r == 1)
                         {
 							this.gs.players[this.gs.turn].setInJail(true);
@@ -440,33 +442,33 @@ public class GameManager
 
 					// Test if we landed on community chest
 					if (ppos == 2 || ppos == 17 || ppos == 33)
-					{ // TODO: Implement community chest system
-                                             int r = CommunityChest.getRng();
-                                            if (r == 1)
-                                            {
-                                                System.out.println("You won a crappy scratch-off, you get $25!");
-                                                this.gs.players[this.gs.turn].money.addMoney(25);
-                                                this.prompt();
-                                            }
-                                            if (r == 2)
-                                            {
-                                                System.out.println("You won a small lottery, you get $150!");
-                                                this.gs.players[this.gs.turn].money.addMoney(150); 
-                                                this.prompt();
-                                            }
-                                            if (r == 3)
-                                            {
-                                                System.out.println("A community chest is for the people, you pay your contribution of $100");
-                                                this.gs.players[this.gs.turn].money.subtractMoney(100); 
-                                                this.prompt();
-                                            }
-                                            
-                                            if (r > 3)
-                                            {
-                                                System.out.println("You save the life of a man named Bobby Gates. He thanks you with $500");
-                                                this.gs.players[this.gs.turn].money.addMoney(500); 
-                                                this.prompt();
-                                            }
+					{
+						int r = CommunityChest.getRng();
+						if (r == 1)
+                        {
+                            System.out.println("You won a crappy scratch-off, you get $25!");
+                            this.gs.players[this.gs.turn].money.addMoney(25);
+                            this.prompt();
+                        }
+                        if (r == 2)
+                        {
+                            System.out.println("You won a small lottery, you get $150!");
+                            this.gs.players[this.gs.turn].money.addMoney(150); 
+                            this.prompt();
+                        }
+                        if (r == 3)
+                        {
+                            System.out.println("A community chest is for the people, you pay your contribution of $100");
+                            this.gs.players[this.gs.turn].money.subtractMoney(100); 
+                            this.prompt();
+                        }
+                        
+                        if (r > 3)
+                        {
+                            System.out.println("You save the life of a man named Bobby Gates. He thanks you with $500");
+                            this.gs.players[this.gs.turn].money.addMoney(500); 
+                            this.prompt();
+                        }
 					}
 
 					System.out.println("What would you like to do?");
@@ -665,7 +667,7 @@ public class GameManager
 							}
 						}
 						if (choice == 2)
-						{// TODO: Implement downgrade submenu
+						{
 							int propertyChoice = this.chooseUpgradableProperty();
 							if (propertyChoice == -1)
 							{
