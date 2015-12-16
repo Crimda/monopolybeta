@@ -19,9 +19,9 @@ public class GameManager
 	boolean paidRentThisTurn = false;
 	boolean paidJailFine = false;
 
-	public GameManager()
+	public GameManager(int numPlayers)
 	{
-		this.gs = new GameState(2);
+		this.gs = new GameState(numPlayers);
 		this.numAlivePlayers = this.gs.players.length;
 	}
 	
