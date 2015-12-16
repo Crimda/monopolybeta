@@ -411,31 +411,31 @@ public class GameManager
 					// Test if we landed on chance
 					if (ppos == 7 || ppos == 22 || ppos == 36)
 					{ // TODO: Implement chance system
-                                            int r = CommunityChest.getRng(); //use same random gen function
-                                            if (r == 1)
-                                            {
-                                                this.gs.players[this.gs.turn].setInJail(true);
-						System.out.println("YOU GO TO JAIL!");
-						this.prompt();   
-                                            }
-                                            if (r == 2)
-                                            {
-                                                this.gs.players[this.gs.turn].setPos(0);
-						System.out.println("You move to GO");
-						this.prompt(); 
-                                            }
-                                            if (r == 3)
-                                            {
-                                                this.gs.players[this.gs.turn].setPos(19);
-						System.out.println("You go to New York for vacation");
-						this.prompt();
-                                            }
-                                            else
-                                            {
-                                                System.out.println("You found money on the ground, you get $10!");
-                                                this.gs.players[this.gs.turn].money.addMoney(10);
-                                                this.prompt();
-                                            }
+                        int r = CommunityChest.getRng(); //use same random gen function
+                        if (r == 1)
+                        {
+							this.gs.players[this.gs.turn].setInJail(true);
+							System.out.println("YOU GO TO JAIL!");
+							this.prompt();   
+                        }
+                        if (r == 2)
+                        {
+							this.gs.players[this.gs.turn].setPos(0);
+							System.out.println("You move to GO");
+							this.prompt(); 
+                        }
+                        if (r == 3)
+                        {
+							this.gs.players[this.gs.turn].setPos(19);
+							System.out.println("You go to New York for vacation");
+							this.prompt();
+                        }
+                        else
+                        {
+                            System.out.println("You found money on the ground, you get $10!");
+                            this.gs.players[this.gs.turn].money.addMoney(10);
+                            this.prompt();
+                        }
 					} else
 
 					// Test if we landed on community chest
