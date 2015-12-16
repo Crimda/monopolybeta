@@ -1,13 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author Brad
  */
+import java.util.Random;
+
 public class CommunityChest extends Space
 {
     public CommunityChest(String name) 
@@ -34,7 +30,14 @@ public class CommunityChest extends Space
         @Override
 	public void setMortgage(boolean yesno)
 	{} // Disabled
-
+    
+    public static int getRng()
+    {
+    Random rand = new Random();
+    int rng = 1+rand.nextInt(6);
+    return rng;
+    }
+    
     @Override
     public void action(Player player, Board board) 
     {

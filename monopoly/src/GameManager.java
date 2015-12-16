@@ -411,11 +411,62 @@ public class GameManager
 					// Test if we landed on chance
 					if (ppos == 7 || ppos == 22 || ppos == 36)
 					{ // TODO: Implement chance system
+                                            int r = CommunityChest.getRng(); //use same random gen function
+                                            if (r == 1)
+                                            {
+                                                this.gs.players[this.gs.turn].setInJail(true);
+						System.out.println("YOU GO TO JAIL!");
+						this.prompt();   
+                                            }
+                                            if (r == 2)
+                                            {
+                                                this.gs.players[this.gs.turn].setPos(0);
+						System.out.println("You move to GO");
+						this.prompt(); 
+                                            }
+                                            if (r == 3)
+                                            {
+                                                this.gs.players[this.gs.turn].setPos(19);
+						System.out.println("You go to New York for vacation");
+						this.prompt();
+                                            }
+                                            else
+                                            {
+                                                System.out.println("You found money on the ground, you get $10!");
+                                                this.gs.players[this.gs.turn].money.addMoney(10);
+                                                this.prompt();
+                                            }
 					} else
 
 					// Test if we landed on community chest
 					if (ppos == 2 || ppos == 17 || ppos == 33)
 					{ // TODO: Implement community chest system
+                                             int r = CommunityChest.getRng();
+                                            if (r == 1)
+                                            {
+                                                System.out.println("You won a crappy scratch-off, you get $25!");
+                                                this.gs.players[this.gs.turn].money.addMoney(25);
+                                                this.prompt();
+                                            }
+                                            if (r == 2)
+                                            {
+                                                System.out.println("You won a small lottery, you get $150!");
+                                                this.gs.players[this.gs.turn].money.addMoney(150); 
+                                                this.prompt();
+                                            }
+                                            if (r == 3)
+                                            {
+                                                System.out.println("A community chest is for the people, you pay your contribution of $100");
+                                                this.gs.players[this.gs.turn].money.subtractMoney(100); 
+                                                this.prompt();
+                                            }
+                                            
+                                            if (r > 3)
+                                            {
+                                                System.out.println("You save the life of a man named Bobby Gates. He thanks you with $500");
+                                                this.gs.players[this.gs.turn].money.addMoney(500); 
+                                                this.prompt();
+                                            }
 					}
 
 					System.out.println("What would you like to do?");
