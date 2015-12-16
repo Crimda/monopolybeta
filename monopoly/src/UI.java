@@ -5,10 +5,393 @@
 
 public class UI
 {
+
+	private int horiSpacing = 1;
+	private int vertSpacing = 1;
+
 	private static String id2text(int id)
 	{
 		if (id == -1) return " ";
 		else return ""+(id+1);
+	}
+
+	public static void fillBlanks(int cells)
+	{ // Print spaces up to CELLS
+		for (int i  = 0; i < cells; i++)
+			System.out.print(" ");
+	}
+
+	public static void drawRow(GameState gs, int[] properties, String[] namemap, int[] typemap)
+	{ // Draw either 10 properties or 2, depending on length of typemap
+		/*
+		 * For typemap:
+		 * -1 == blank
+		 *	0 == property
+		 *	1 == chance
+		 *	2 == com chest
+		 *	3 == railroad
+		 *	4 == utility
+		 *	5 == tax
+		 *	6 == go
+		 *	7 == jail
+		 *	8 == freeparking
+		 *	9 == gotojail
+		*/
+		// Cell is 7 rows by 13 columns
+		for (int x = 0; x < 11; x++)
+		{ // Iterate over the 10 cells of this side, first row
+			if (typemap[x] == -1)
+			{
+				fillBlanks(15);
+				continue;
+			}
+			else
+			{
+				System.out.print("+============+ ");
+			}
+		}
+		System.out.print("\n");
+		for (int x = 0; x < 11; x++)
+		{ // Second row, contains property name
+			if (typemap[x] == -1)
+			{
+				fillBlanks(15);
+				continue;
+			}
+			else
+			{
+				switch (typemap[x])
+				{
+					case 0:
+						System.out.printf("| %s | ", namemap[x]);
+						break;
+
+					case 1:
+						System.out.print("|            | ");
+						break; // Draw chance on the next line
+
+					case 2:
+						System.out.print("|  Community | ");
+						break;
+
+					case 3:
+						if (properties[x] == 5) // draw rest on next line
+							System.out.print("|  Reading   | ");
+						if (properties[x] == 15) // draw rest on next line
+							System.out.print("| Pennsylva. | ");
+						if (properties[x] == 25)
+							System.out.print("|    B &O    | "); // draw rest on next line
+						if (properties[x] == 35)
+							System.out.print("| Short Line | ");
+						break;
+
+					case 4:
+						if (properties[x] == 12) // draw rest on next line
+							System.out.print("|  Electric  | ");
+						if (properties[x] == 28) // draw rest on next line
+							System.out.print("|    Water   | ");
+						break;
+					case 5:
+						if (properties[x] == 4) // draw rest on next line
+							System.out.print("|   INCOME   | ");
+						if (properties[x] == 38) // draw rest on next line
+							System.out.print("|   LUXURY   | ");
+						break;
+					case 6:
+						System.out.print("|    G  O    | ");
+						break;
+					case 7:
+						System.out.print("|  Visiting  | ");
+						break;
+					case 8:
+						System.out.print("|    FREE    | ");
+						break;
+					case 9:
+						System.out.print("|!   GTFO   !| ");
+						break;
+				}
+			}
+		}
+		System.out.print("\n");
+		for (int x = 0; x < 11; x++)
+		{
+			if (typemap[x] == -1)
+			{
+				fillBlanks(15);
+				continue;
+			}
+			else
+			{
+				switch (typemap[x])
+				{
+					case 0:
+						System.out.print("+============+ ");
+						break;
+					default:
+						// Corners
+						if (properties[x] == 0 ) System.out.print("|  <-------  | "); else
+						if (properties[x] == 10) System.out.print("|J  +========+ "); else
+						if (properties[x] == 20) System.out.print("|            | "); else
+						if (properties[x] == 30) System.out.print("|     TO     | "); else
+						// Community Chest
+						if (properties[x] == 2 || properties[x] == 17 || properties[x] == 33)
+							System.out.print("|    Chest   | "); else
+						// Chance
+						if (properties[x] == 7 || properties[x] == 22 || properties[x] == 36)
+							System.out.print("|   CHANCE   | "); else
+						// Railroads
+						if (properties[x] == 5 || properties[x] == 15 || properties[x] == 25)
+							System.out.print("|  Railroad  | "); else
+						// Tax
+						if (properties[x] == 4 || properties[x] == 38)
+							System.out.print("|    Tax     | "); else
+						// Utilities
+						if (properties[x] == 12) System.out.print("|  Company   | "); else
+						if (properties[x] == 28) System.out.print("|    Works   | ");
+						break;
+				}
+			}
+		}
+		System.out.print("\n");
+		for (int x = 0; x < 11; x++)
+		{
+			if (typemap[x] == -1)
+			{
+				fillBlanks(15);
+				continue;
+			}
+			else
+			{
+				switch(typemap[x])
+				{
+					case 0:
+						Space curProp = gs.properties[properties[x]];
+						if (curProp.getHouses() == 0 && !curProp.getHotel())
+							System.out.print("|            | "); else
+						if (curProp.getHouses() == 1)
+							System.out.print("|    H       | "); else
+						if (curProp.getHouses() == 2)
+							System.out.print("|    HH      | "); else
+						if (curProp.getHouses() == 3)
+							System.out.print("|    HHH     | "); else
+						if (curProp.getHouses() == 4)
+							System.out.print("|    HHHH    | "); else
+						if (curProp.getHotel())
+							System.out.print("|    [==]    | ");
+						break;
+					case 7:
+						System.out.print("|U  |   In   | ");
+						break;
+					case 8:
+						System.out.print("|  PARKING!  | ");
+						break;
+					default:
+						System.out.print("|            | ");
+						break;
+				}
+			}
+		}
+		System.out.print("\n");
+		for (int x = 0; x < 11; x++)
+		{
+			if (typemap[x] == -1)
+			{
+				fillBlanks(15);
+				continue;
+			}
+			else
+			{
+				if (typemap[x] == 7)
+					System.out.print("|S  |");
+				else
+					System.out.print("|    ");
+
+				// Minimum number of players is 2. You may not play with yourself.
+				if (gs.playerCount >= 2)
+				{
+					if (gs.players[0].getPos() == properties[x])
+						System.out.print("1");
+					else
+						System.out.print(" ");
+
+					if (gs.players[1].getPos() == properties[x])
+						System.out.print("2");
+					else
+						System.out.print(" ");
+				}
+				
+				if (gs.playerCount >= 3)
+				{
+					if (gs.players[2].getPos() == properties[x])
+						System.out.print("3");
+					else
+						System.out.print(" ");
+				}
+				else
+					System.out.print(" ");
+
+				if (gs.playerCount >= 4)
+				{
+					if (gs.players[3].getPos() == properties[x])
+						System.out.print("4");
+					else
+						System.out.print(" ");
+				}
+				else
+					System.out.print(" ");
+
+				if (gs.playerCount >= 5)
+				{
+					if (gs.players[4].getPos() == properties[x])
+						System.out.print("5");
+					else
+						System.out.print(" ");
+				}
+				else
+					System.out.print(" ");
+
+				if (gs.playerCount == 6)
+				{
+					if (gs.players[5].getPos() == properties[x])
+						System.out.print("6");
+					else
+						System.out.print(" ");
+				}
+				else
+					System.out.print(" ");
+				
+				System.out.print("  | ");
+			}
+		}
+		System.out.print("\n");
+		for (int x = 0; x < 11; x++)
+		{
+			if (typemap[x] == -1)
+			{
+				fillBlanks(15);
+				continue;
+			}
+			else
+			{
+				Space curProp = gs.properties[properties[x]];
+				switch (typemap[x])
+				{
+					case 3:
+					case 4:
+					case 0:
+						System.out.printf("|%s   M", id2text(curProp.getOwnerID()));
+
+						// Test if price is less than 100 and pad for missing 0
+						if (curProp.getPrice() < 100)
+							System.out.printf("%d ", curProp.getPrice());
+						else
+							System.out.printf("%d", curProp.getPrice());
+
+						System.out.printf("   %s| ", id2text(curProp.getOwnerID()));
+						break;
+
+					case 5:
+						System.out.printf("|  PAY M%d  | ", curProp.getTaxRate());
+						break;
+
+					case 7:
+						System.out.print("|T  |  JAIL  | ");
+						break;
+
+					case 8:
+						System.out.print("|   (OMG!)   | ");
+						break;
+
+					case 9:
+						System.out.print("|!   JAIL   !| ");
+						break;
+
+					default:
+						System.out.print("|            | ");
+				}
+			}
+		}
+		System.out.print("\n");
+		for (int x = 0; x < 11; x++)
+		{
+			if (typemap[x] == -1)
+			{
+				fillBlanks(15);
+				continue;
+			}
+			else
+			{
+				System.out.print("+============+ ");
+			}
+		}
+		System.out.print("\n");
+	}
+
+	public static void drawMap2(GameState gs)
+	{
+		// this is counting 0 as top and 10 as bottom
+		int[] row0_indexes = {20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
+		String[] row0_namemap = {"", "Kent. Ave.", "", "Indi. Ave.", "Illi. Ave.", "", "Atla. Ave.", "Vent. Ave.", "", "Marvin Ga.", ""};
+		int[] row0_typemap = {8, 0, 1, 0, 0, 3, 0, 0, 4, 0, 9};
+
+		int[] row1_indexes = {19, 0, 0, 0, 0, 0, 0, 0, 0, 0, 31};
+		String[] row1_namemap = {"New Y Ave.", "","","","","","","","", "", "Paci. Ave."};
+		int[] row1_typemap = {0,-1,-1,-1,-1,-1,-1,-1,-1,-1, 0};
+
+		int[] row2_indexes = {18, 0, 0, 0, 0, 0, 0, 0, 0, 0, 32};
+		String[] row2_namemap = {"Tenn. Ave.", "","","","","","","","", "", "N. C. Ave."};
+		int[] row2_typemap = {0,-1,-1,-1,-1,-1,-1,-1,-1,-1, 0};
+
+		int[] row3_indexes = {17, 0, 0, 0, 0, 0, 0, 0, 0, 0, 33};
+		String[] row3_namemap = {"", "","","","","","","","", "", ""};
+		int[] row3_typemap = {2,-1,-1,-1,-1,-1,-1,-1,-1,-1, 2};
+
+		int[] row4_indexes = {16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 34};
+		String[] row4_namemap = {"St. James ", "","","","","","","","", "", "Penn. Ave."};
+		int[] row4_typemap = {0,-1,-1,-1,-1,-1,-1,-1,-1,-1, 0};
+
+		int[] row5_indexes = {15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 35};
+		String[] row5_namemap = {"", "","","","","","","","", "", ""};
+		int[] row5_typemap = {3,-1,-1,-1,-1,-1,-1,-1,-1,-1, 3};
+
+		int[] row6_indexes = {14, 0, 0, 0, 0, 0, 0, 0, 0, 0, 36};
+		String[] row6_namemap = {"Virg. Ave.", "","","","","","","","", "", ""};
+		int[] row6_typemap = {0,-1,-1,-1,-1,-1,-1,-1,-1,-1, 1};
+
+		int[] row7_indexes = {13, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37};
+		String[] row7_namemap = {"Stat. Ave.", "","","","","","","","", "", "Park Place"};
+		int[] row7_typemap = {0,-1,-1,-1,-1,-1,-1,-1,-1,-1, 0};
+
+		int[] row8_indexes = {12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 38};
+		String[] row8_namemap = {"", "","","","","","","","", "", ""};
+		int[] row8_typemap = {4,-1,-1,-1,-1,-1,-1,-1,-1,-1, 5};
+
+		int[] row9_indexes = {11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 39};
+		String[] row9_namemap = {"St. Charl.", "","","","","","","","", "", "Board Walk"};
+		int[] row9_typemap = {0,-1,-1,-1,-1,-1,-1,-1,-1,-1, 0};
+
+		int[] row10_indexes = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+		String[] row10_namemap = {"", "Conn. Ave.", "Verm. Ave.", "", "Orie. Ave.", "", "", "Balt. Ave.", "", "Medi. Ave.", ""};
+		int[] row10_typemap = {7, 0, 0, 1, 0, 3, 5, 0, 2, 0, 6};
+
+		drawRow(gs, row0_indexes, row0_namemap, row0_typemap);
+		drawRow(gs, row1_indexes, row1_namemap, row1_typemap);
+		drawRow(gs, row2_indexes, row2_namemap, row2_typemap);
+		drawRow(gs, row3_indexes, row3_namemap, row3_typemap);
+		drawRow(gs, row4_indexes, row4_namemap, row4_typemap);
+		drawRow(gs, row5_indexes, row5_namemap, row5_typemap);
+		drawRow(gs, row6_indexes, row6_namemap, row6_typemap);
+		drawRow(gs, row7_indexes, row7_namemap, row7_typemap);
+		drawRow(gs, row8_indexes, row8_namemap, row8_typemap);
+		drawRow(gs, row9_indexes, row9_namemap, row9_typemap);
+		drawRow(gs, row10_indexes, row10_namemap, row10_typemap);
+/*
+		{ // Bottom row
+			int[] indexes = {10, 9, 8, 7, 8, 7, 6, 5, 4, 3, 2, 1, 0};
+			int[] typemap = {7, 0, 0, 1, 0, 3, 5, 0, 2, 0, 6};
+			drawRow(gs, indexes, typemap);
+		}
+*/
 	}
 
 	public static void drawMap(GameState gs)

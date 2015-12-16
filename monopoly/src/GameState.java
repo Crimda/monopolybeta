@@ -63,6 +63,5 @@ public class GameState
 		this.properties[38] = new Tax("Luxury Tax", 100);
 		this.properties[39] = new Property("Boardwalk", 400, 50, 200, 200, 200, 200, 600, 1400, 1700, 2000);
 	}
-
 }
 

@@ -12,8 +12,10 @@ public class MonopolyApp {
      */
     public static void main(String[] args)
     {
-		GameManager gm = new GameManager();
-		gm.mainLoop();
+//		GameManager gm = new GameManager();
+//		gm.mainLoop();
+		GameState gs = new GameState(6);
+		UI.drawMap2(gs);
     }
     
 }
