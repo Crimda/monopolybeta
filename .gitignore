@@ -9,6 +9,10 @@ Desktop.ini
 *.class
 *.swp
 
+# Extra stuff
+monopoly/src/lineCount.py
+monopoly/src/Makefile
+
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
