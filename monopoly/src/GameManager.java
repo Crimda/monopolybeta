@@ -127,6 +127,19 @@ public class GameManager
 
 		if (!valid) return -1;
 
+		// Ensure that at least one property can be unmortgaged
+		valid = false;
+		for (int i = 0; i < 40; i++)
+		{
+			if (this.gs.properties[i].getMortgage())
+			{
+				valid = true;
+				break;
+			}
+		}
+
+		if (!valid) return -2;
+
 		while (true)
 		{
 			UI.clearScreen();
@@ -194,7 +207,10 @@ public class GameManager
 				this.gs.turn = 0;
 
 			if (this.gs.players[this.gs.turn].isBankrupt())
+			{
+				this.gs.turn += 1;
 				continue;
+			}
 
 			if (this.numAlivePlayers == 1)
 			{
@@ -218,7 +234,7 @@ public class GameManager
 
 					if (this.gs.players[this.gs.turn].getInJail())
 					{
-						System.out.printf("You are in jail! You have made %d/3 escape attempts! What would you like to do?\n\t> ", this.gs.players[this.gs.turn].getEscapeAttempts());
+						System.out.printf("You are in jail! You have made %d/3 escape attempts! What would you like to do?\n", this.gs.players[this.gs.turn].getEscapeAttempts());
 						int attempts = this.gs.players[this.gs.turn].getEscapeAttempts();
 
 						if (attempts == 0)
@@ -239,6 +255,7 @@ public class GameManager
 								{
 									System.out.println("You failed to escape!");
 									this.prompt();
+									turnState = -1;
 								}
 							}
 							if (choice == 2)
@@ -607,6 +624,13 @@ public class GameManager
 						if (subChoice == 2)
 						{
 							int propertyChoice = chooseMortgagedProperty();
+							if (propertyChoice == -2)
+							{
+								System.out.println("You do not have any properties that can be unmortgaged!");
+								this.prompt();
+								continue;
+							}
+
 							if (propertyChoice == -1)
 							{
 								System.out.println("You do not own any properties!");
