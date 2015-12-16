@@ -6,7 +6,7 @@
 public class Property extends Space
 {
     
-    public Property(String name, int price, int rent, int houseCost, int hotelCost, int mortgageValue)
+    public Property(String name, int price, int rent, int houseCost, int hotelCost, int mortgageValue, int h1RateModifier, int h2RateModifier, int h3RateModifier, int h4RateModifier, int hotelRateModifier)
     {
         super(name);
         //super(color); // for later
@@ -14,6 +14,13 @@ public class Property extends Space
         this.rent = rent;
         this.houseCost = houseCost;
         this.hotelCost = hotelCost;
+		
+		this.h1RateModifier = h1RateModifier;
+		this.h2RateModifier = h2RateModifier;
+		this.h3RateModifier = h3RateModifier;
+		this.h4RateModifier = h4RateModifier;
+		this.hotelRateModifier = hotelRateModifier;
+
         this.mortgageValue = mortgageValue;
         this.buyable = true;
         this.canUpgrade = true;

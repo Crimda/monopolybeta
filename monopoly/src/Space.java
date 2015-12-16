@@ -17,6 +17,12 @@ public abstract class Space
     int hotelCost = 0;
     int mortgageValue = 0;
 
+    int h1RateModifier = 0;
+    int h2RateModifier = 0;
+    int h3RateModifier = 0;
+    int h4RateModifier = 0;
+	int hotelRateModifier = 0;
+
     boolean buyable = false;
     boolean canUpgrade = false;
 
@@ -73,7 +79,29 @@ public abstract class Space
 
 	public int getRent()
 	{
-		return this.rent;
+		int finalRent = this.rent;
+		switch (this.houses)
+		{
+			case 1:
+				finalRent = this.h1RateModifier;
+				break;
+			case 2:
+				finalRent = this.h2RateModifier;
+				break;
+			case 3:
+				finalRent = this.h3RateModifier;
+				break;
+			case 4:
+				finalRent = this.h4RateModifier;
+				break;
+			default:
+				break;
+		}
+
+		if (this.hotel)
+			finalRent = this.hotelRateModifier;
+
+		return finalRent;
 	}
 
 	public abstract void setHouses(int houses);
