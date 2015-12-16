@@ -6,9 +6,6 @@
 public class UI
 {
 
-	private int horiSpacing = 1;
-	private int vertSpacing = 1;
-
 	private static String id2text(int id)
 	{
 		if (id == -1) return " ";
@@ -131,7 +128,7 @@ public class UI
 						// Corners
 						if (properties[x] == 0 ) System.out.print("|  <-------  | "); else
 						if (properties[x] == 10) System.out.print("|J  +========+ "); else
-						if (properties[x] == 20) System.out.print("|            | "); else
+						if (properties[x] == 20 || properties[x] == 35) System.out.print("|            | "); else
 						if (properties[x] == 30) System.out.print("|     TO     | "); else
 						// Community Chest
 						if (properties[x] == 2 || properties[x] == 17 || properties[x] == 33)
@@ -327,7 +324,7 @@ public class UI
 		System.out.print("\n");
 	}
 
-	public static void drawMap2(GameState gs)
+	public static void drawMap(GameState gs)
 	{
 		// this is counting 0 as top and 10 as bottom
 		int[] row0_indexes = {20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30};
@@ -393,7 +390,7 @@ public class UI
 		}
 */
 	}
-
+/*
 	public static void drawMap(GameState gs)
 	{ // Currently a placeholder; TODO: Implement map logic
 		System.out.print("+============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
@@ -1204,7 +1201,7 @@ public class UI
 		System.out.print("|T  |  JAIL  | |1   M120   1| |1   M100   1| |            | |1   M100   1| |1   M200   1| |  PAY M200  | |1    M60   1| |            | |1    M60   1| |            |\n"); // TODO: Owner player slot
 		System.out.print("+==+=========+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+ +============+\n");
 	}
-	
+*/	
 	public static void draw(String test)
 	{
 		System.out.println(test);
