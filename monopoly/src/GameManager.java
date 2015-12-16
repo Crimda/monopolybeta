@@ -249,7 +249,26 @@ public class GameManager
 							}
 							if (choice == 3)
 							{
-								if (this.g
+								if (!this.gs.players[this.gs.turn].getEscapeCard())
+								{
+									System.out.println("You do not have an escape card!");
+									this.prompt();
+									continue;
+								}
+								
+								System.out.println("You have an escape card, would you like to use it?");
+								int subChoice = this.getChoice("1 - Yes\n2 - No\n\t> ", 1, 2);
+
+								if (subChoice == 1)
+								{
+									System.out.println("You used your escape card! FREEDOM!");
+									this.gs.players[this.gs.turn].setEscapeCard(false);
+									this.gs.players[this.gs.turn].setInJail(false);
+									this.numDoubles = 0;
+									this.turnState = 2;
+								}
+								else
+									continue;
 							}
 							if (choice == 4)
 								this.turnState = 10;
