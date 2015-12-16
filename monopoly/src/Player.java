@@ -15,7 +15,7 @@ public class Player
 
 	boolean inJail = false;
 	int escapeAttempts = 0;
-	boolean hasGetOutOfJailFreeCard = false;
+	boolean escapeCard = false;
 	String invalidReason = "";
 	int escapeRollValue = 0;
 
@@ -39,6 +39,16 @@ public class Player
 		return retval;
 	}
 */
+ 	boolean getEscapeCard()
+ 	{
+ 		return this.escapeCard;
+ 	}
+
+ 	void setEscapeCard(boolean value)
+ 	{
+ 		this.escapeCard = value;
+ 	}
+
  	int getRailroads()
  	{
  		return this.numRailroads;

@@ -249,8 +249,8 @@ public class GameManager
 							}
 							if (choice == 3)
 							{
-
-							} // TODO: Handle get out of jail free cards
+								if (this.g
+							}
 							if (choice == 4)
 								this.turnState = 10;
 						}
